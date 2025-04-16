@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import styles from "@/styles/nv.module.scss";
-import Topbar from "./topbar";
+import styles from "./styles.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,7 +15,7 @@ export default function Navbar() {
       setTimeout(() => {
         setIsMenuOpen(false);
         setIsClosing(false);
-      }, 300); // Sesuaikan dengan durasi animasi
+      }, 300);
     } else {
       setIsMenuOpen(true);
     }
@@ -22,8 +23,21 @@ export default function Navbar() {
 
   return (
     <>
-      <Topbar />
-      <nav className={`${styles.nav} `}>
+      <div className={styles.topNav}>
+        <div className={styles.topNavLeft}>
+          <div className={styles.emailInfo}>
+            <FontAwesomeIcon icon={faEnvelope} />
+            <span>info@kartart50.com</span>
+          </div>
+          <div className={styles.phoneInfo}>
+            <FontAwesomeIcon icon={faPhone} />
+            <span>(+62) 123-456-789</span>
+          </div>
+        </div>
+        <div className={styles.topNavRight}>KARTAR RT50</div>
+      </div>
+
+      <nav className={styles.nav}>
         <div className={styles.logo}>Logo</div>
 
         <button
