@@ -35,7 +35,7 @@ const SliderBanner = () => {
           type: "loop",
           autoplay: true,
           interval: 5000,
-          speed: 1200,
+          speed: 1600,
           pauseOnHover: false,
           arrows: true,
           perPage: 1,

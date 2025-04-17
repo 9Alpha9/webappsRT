@@ -1,3 +1,11 @@
+:root {
+  --login-button-color: #0e3332;
+  --login-button-hover: #16514f;
+  --cta-color-primary: #0e3332;
+  --cta-color-hover: #16514f;
+  --cta-background-after: #0e3332;
+}
+
 .topNav {
   background-color: #f8f9fa;
   padding: 0.5rem 2rem;
@@ -139,7 +147,7 @@
 }
 
 .navLink {
-  color: #333;
+  color: var(--cta-color-primary);
   text-decoration: none;
   font-weight: 500;
   position: relative;
@@ -153,12 +161,12 @@
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #0070f3;
+    background-color: var(--cta-background-after);
     transition: width 0.3s ease;
   }
 
   &:hover {
-    color: #0070f3;
+    color: var(--cta-color-hover);
 
     &::after {
       width: 100%;
@@ -185,7 +193,7 @@
 }
 
 .loginButton {
-  background-color: #333;
+  background-color: var(--login-button-color);
   color: white;
   padding: 0.75rem 2.5rem;
   border-radius: 100px;
@@ -213,7 +221,7 @@
   }
 
   &:hover {
-    background-color: #0051a2;
+    background-color: var(--login-button-hover);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
     &::before {

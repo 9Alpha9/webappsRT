@@ -5,15 +5,11 @@
 
 .pengurusContainer {
   color: var(--header-title);
-  margin: 2rem;
-  padding: 2rem 0;
+  margin-top: 2rem;
+  padding: 0rem 0;
 
   .pengurusHeader {
     font-size: var(--header-size-medium);
     font-weight: 600;
-  }
-
-  .pengurusContent {
-    // margin: 2rem;
   }
 }
