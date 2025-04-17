@@ -36,7 +36,6 @@ export default function Navbar() {
         </div>
         <div className={styles.topNavRight}>KARTAR RT50</div>
       </div>
-
       <nav className={styles.nav}>
         <div className={styles.logo}>Logo</div>
 
@@ -71,7 +70,20 @@ export default function Navbar() {
           <Link href="/ajuan-formulir" className={styles.navLink}>
             Ajuan Formulir
           </Link>
+          <Link href="/ajuan-formulir" className={styles.navLink}>
+            Aduan Warga
+          </Link>
           <button className={styles.loginButton}>Login</button>
+          <div className={styles.navOverlay}>
+            <span>
+              <FontAwesomeIcon icon={faEnvelope} />
+              info@kartart50.com
+            </span>
+            <span>
+              <FontAwesomeIcon icon={faPhone} />
+              <span>(+62) 123-456-789</span>
+            </span>
+          </div>
         </div>
       </nav>
     </>

@@ -1,6 +1,7 @@
 import Navbar from "./components/navbarComp/navbar";
 import SliderBanner from "./components/slideBanner/sliderBanner";
 import Styles from "./global.module.scss";
+import { AgendaKegiatanRT } from "./layout/agendaRT/agendaKegiatanRT";
 import RTOfficialsSlider from "./layout/pengurusrt/rtOfficialsSlider";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
         <Navbar />
         <SliderBanner />
         <RTOfficialsSlider />
+        <AgendaKegiatanRT />
       </div>
     </>
   );

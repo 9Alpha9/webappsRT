@@ -9,6 +9,7 @@ const nextConfig = {
     return config;
   },
   images: {
+    domains: ["images.unsplash.com", "images.pexels.com"],
     remotePatterns: [
       {
         protocol: "https",

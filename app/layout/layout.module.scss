@@ -1,0 +1,8 @@
+.main {
+  min-height: 100vh;
+  padding-top: 60px; // Sesuaikan dengan tinggi navbar
+
+  @media (min-width: 769px) {
+    padding-top: 0; // Hapus padding di desktop
+  }
+}
