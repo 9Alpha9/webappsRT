@@ -1,5 +1,14 @@
 .pageContainer {
-  width: 100%;
-  max-width: 100%;
-  margin: auto;
+  max-width: 2500px;
+  margin: 0 auto;
+}
+
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  flex-grow: 1;
 }

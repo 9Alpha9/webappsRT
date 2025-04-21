@@ -1,0 +1,170 @@
+:root {
+    --footer-background: #081f1e;
+    --footer-text-color: #dadada;
+    --footer-text-sm: 0.9rem;
+    --footer-text-md: 1rem;
+    --footer-text-lg: 1.6rem;
+    --footer-text-xl: 2.6rem;
+    --footer-text-2xl: 3rem;
+    --footer-desktop-max: 24480px;
+
+    --footer-link-hover: #CCFFF6;
+    --footer-header-primary: #CCFFF6;
+    --footer-link-primary: #FFD2DD;
+
+    --footer-background-bottom: #031110;
+    --footer-scale-bottom: 65%;
+    --footer-scale-bottoms: 1440px;
+}
+
+
+.footerContainer {
+    background-color: var(--footer-background);
+    color: var(--footer-text-color);
+
+    .footerWrapper {
+        max-width: var(--footer-desktop-max);
+        margin: auto;
+        justify-content: center;
+        display: flex;
+        padding: 2.5rem;
+
+        .footerContent {
+            margin: 3.5rem 0;
+            display: grid;
+            gap: 2.5rem;
+
+            @media (max-width:992px) {
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            @media (min-width: 1023px) {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .footerItems {
+                position: relative;
+
+                .footerHeader {
+                    font-weight: 700;
+                    color: var(--footer-header-primary);
+                    font-size: var(--footer-text-lg);
+
+                    @media (max-width:768px) {
+                        font-size: var(--footer-text-md);
+                    }
+
+                }
+
+                .footerLinks {
+                    padding: 1.4rem 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1.2rem;
+
+                    @media (max-width: 768px) {
+                        gap: 0.9rem;
+                    }
+
+                    .footerKartarPh {
+                        font-size: var(--footer-text-md);
+                        display: flex;
+                        flex-direction: row;
+                        gap: .7rem;
+                        color: var(--footer-link-primary);
+                        align-items: center;
+
+                        @media (max-width: 768px) {
+                            font-size: var(--footer-text-sm);
+                        }
+                    }
+
+                    .footerLinksItem {
+                        font-size: var(--footer-text-sm);
+                    }
+
+                    .footerLinksCta {
+                        color: var(--footer-link-primary);
+                        transition: ease-in-out .2s all;
+                        display: inline-block;
+                        font-size: var(--footer-text-sm);
+
+                        @media (max-width: 768px) {
+                            font-size: var(--footer-text-sm);
+                            gap: 0.9rem;
+                        }
+
+
+                        &:hover {
+                            color: #CCFFF6;
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .footerBottom {
+        padding: 1.2rem;
+        background-color: var(--footer-background-bottom);
+
+        @media (max-width: 768px) {
+            padding: 2.5rem;
+        }
+
+        .footerBottomWrapper {
+            max-width: var(--footer-scale-bottoms);
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+
+        }
+
+        .footerBottomContent {
+            display: flex;
+            justify-content: space-between;
+            gap: 2.5rem;
+            flex-direction: row;
+            width: var(--footer-scale-bottoms);
+
+
+            @media (max-width:1000px) {
+                flex-direction: column;
+                line-height: 2.2rem;
+            }
+
+
+
+        }
+
+        .footerBootomItems {
+            position: relative;
+            font-size: var(--footer-text-sm);
+
+            @media (max-width: 600px) {
+                font-size: var(--footer-text-sm);
+            }
+
+
+            .footerBottomLinks {
+                font-weight: 700;
+                color: var(--footer-link-primary);
+                transition: ease-in-out .2s all;
+
+                &:hover {
+                    color: #CCFFF6;
+
+                }
+            }
+        }
+
+        .footerLinkWrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 1.2rem;
+            white-space: nowrap;
+        }
+    }
+}

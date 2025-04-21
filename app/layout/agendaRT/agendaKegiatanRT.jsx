@@ -3,30 +3,81 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 
 export const AgendaKegiatanRT = () => {
+  const agendaItems = [
+    {
+      date: "17",
+      month: "Agustus",
+      title:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, doloribus.",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nobis molestiae, incidunt illum nisi, totam cumque architecto quasi quidem ipsa officia aliquid commodi, modi dignissimos! Maxime voluptatibus ratione minima numquam.",
+    },
+    {
+      date: "17",
+      month: "Agustus",
+      title:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, doloribus.",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nobis molestiae, incidunt illum nisi, totam cumque architecto quasi quidem ipsa officia aliquid commodi, modi dignissimos! Maxime voluptatibus ratione minima numquam.",
+    },
+    {
+      date: "10",
+      month: "November",
+      title:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, doloribus.",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nobis molestiae, incidunt illum nisi, totam cumque architecto quasi quidem ipsa officia aliquid commodi, modi dignissimos! Maxime voluptatibus ratione minima numquam.",
+    },
+    {
+      date: "10",
+      month: "November",
+      title:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, doloribus.",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nobis molestiae, incidunt illum nisi, totam cumque architecto quasi quidem ipsa officia aliquid commodi, modi dignissimos! Maxime voluptatibus ratione minima numquam.",
+    },
+    {
+      date: "31",
+      month: "Mei",
+      title:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, doloribus.",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nobis molestiae, incidunt illum nisi, totam cumque architecto quasi quidem ipsa officia aliquid commodi, modi dignissimos! Maxime voluptatibus ratione minima numquam.",
+    },
+    {
+      date: "54",
+      month: "Januari",
+      title:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, doloribus.",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nobis molestiae, incidunt illum nisi, totam cumque architecto quasi quidem ipsa officia aliquid commodi, modi dignissimos! Maxime voluptatibus ratione minima numquam.",
+    },
+
+    // Tambahkan item agenda lainnya di sini
+  ];
+
   return (
     <>
       <div className={styles.agendaContainer}>
         <div className={styles.agendaHeader}>
-          <span>Agenda Kegiatan Warga RT 50</span>
+          <span>Agenda Kegiatan Warga</span>
         </div>
         <div className={styles.agendaContent}>
           <div className={styles.agendaCalendar}>
-            <div className={styles.agendaDate}>
-              <span className={styles.agendaDateNumber}>31</span>
-              <span className={styles.agendaDateMonth}>Januari</span>
-            </div>
-            <div className={styles.agendaWrapper}>
-              <div className={styles.agendaTitle}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe,
-                doloribus.
+            {agendaItems.map((item, index) => (
+              <div className={styles.agendaCalendarWrapper} key={index}>
+                <div className={styles.agendaDate}>
+                  <span className={styles.agendaDateNumber}>{item.date}</span>
+                  <span className={styles.agendaDateMonth}>{item.month}</span>
+                </div>
+                <div className={styles.agendaWrapper}>
+                  <div className={styles.agendaTitle}>{item.title}</div>
+                  <div className={styles.agendaDescription}>
+                    {item.description}
+                  </div>
+                </div>
               </div>
-              <div className={styles.agendaDescription}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
-                nobis molestiae, incidunt illum nisi, totam cumque architecto
-                quasi quidem ipsa officia aliquid commodi, modi dignissimos!
-                Maxime voluptatibus ratione minima numquam.
-              </div>
-            </div>
+            ))}
           </div>
           <div className={styles.agendaBanner}>
             <Image

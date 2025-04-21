@@ -1,0 +1,34 @@
+:root {
+    --about-max-scale: 2440px;
+}
+
+.aboutRtContainer {
+    position: relative;
+    color: #202020;
+    padding: 2.5rem 0;
+
+    @media (max-width:768px) {
+        padding: 1.2rem;
+        margin: 2rem 0;
+    }
+
+    .aboutRtWrapper {
+        max-width: var(--about-max-scale);
+        margin: auto;
+        justify-content: center;
+        position: relative;
+
+        .aboutRtBanner {
+            border-radius: 1rem;
+            overflow: hidden;
+            margin: 2.4rem 0;
+            position: relative;
+
+            img {
+                height: 569px;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}

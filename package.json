@@ -14,6 +14,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide": "^4.1.4",
+    "framer-motion": "^12.7.4",
     "next": "15.3.0",
     "pexels": "^1.4.0",
     "react": "^19.0.0",
