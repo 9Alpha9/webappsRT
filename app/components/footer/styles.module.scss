@@ -12,7 +12,7 @@ $footer-header-primary: #CCFFF6;
 $footer-link-primary: #FFD2DD;
 
 $footer-background-bottom: #031110;
-$footer-scale-bottom: 65%;
+$footer-scale-bottom: 60%;
 
 
 
@@ -112,12 +112,10 @@ $footer-scale-bottom: 65%;
         }
 
         .footerBottomWrapper {
-            max-width: $footer-scale-bottoms;
             margin: auto;
             justify-content: center;
             align-items: center;
             display: flex;
-
         }
 
         .footerBottomContent {
@@ -125,10 +123,12 @@ $footer-scale-bottom: 65%;
             justify-content: space-between;
             gap: 2.5rem;
             flex-direction: row;
-            width: $footer-scale-bottoms;
 
+            @media (min-width:1024px) {
+                width: $footer-scale-bottom;
+            }
 
-            @media (max-width:1000px) {
+            @media (max-width:768px) {
                 flex-direction: column;
                 line-height: 2.2rem;
             }
