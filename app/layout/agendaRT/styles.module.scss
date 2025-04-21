@@ -1,41 +1,40 @@
-:root {
-  --background-color: #0e3332;
-  --foreground-color: #f8f9fa;
-  --padding-agd: 2rem;
-  --margin-agd: 2rem;
-  --header-title-2xl: 3.5rem;
-  --header-title-xl: 2.5rem;
-  --header-title-lg: 1.9rem;
-  --header-title-md: 1.4rem;
-  --header-title-sm: 0.9rem;
-  --header-weight: 700;
-  --header-color: #ceffee;
-  --padding-agd: 2.7rem;
-}
+$background-color: #0e3332;
+$foreground-color: #f8f9fa;
+$padding-agd: 2rem;
+$margin-agd: 2rem;
+$header-title-2xl: 3.5rem;
+$header-title-xl: 2.5rem;
+$header-title-lg: 1.9rem;
+$header-title-md: 1.4rem;
+$header-title-sm: 0.9rem;
+$header-weight: 700;
+$header-color: #ceffee;
+$padding-agd: 2.7rem;
+
 
 .agendaContainer {
-  background-color: var(--background-color);
-  padding: var(--padding-agd);
-  margin: var(--margin-agd);
+  background-color: $background-color;
+  padding: $padding-agd;
+  margin: $margin-agd;
   border-radius: 1rem;
   margin-top: 10rem;
 
   .agendaHeader {
     padding: 3rem 0;
     text-align: center;
-    color: var(--header-color);
-    font-weight: var(--header-weight);
+    color: $header-color;
+    font-weight: $header-weight;
 
     @media (max-width: 992px) {
-      font-size: var(--header-title-md);
+      font-size: $header-title-md;
     }
 
     @media (min-width: 1023px) {
-      font-size: var(--header-title-lg);
+      font-size: $header-title-lg;
     }
 
     @media (min-width: 1024px) {
-      font-size: var(--header-title-2xl);
+      font-size: $header-title-2xl;
     }
   }
 }
@@ -126,7 +125,7 @@
       bottom: 1.4rem;
       z-index: 1;
       text-align: center;
-      font-size: var(--header-title-sm);
+      font-size: $header-title-sm;
     }
 
     &::before {
@@ -177,15 +176,15 @@
     color: #204e4c;
 
     @media (max-width: 992px) {
-      font-size: var(--header-title-lg);
+      font-size: $header-title-lg;
     }
 
     @media (min-width: 1023px) {
-      font-size: var(--header-title-lg);
+      font-size: $header-title-lg;
     }
 
     @media (min-width: 1024px) {
-      font-size: var(--header-title-2xl);
+      font-size: $header-title-2xl;
     }
 
   }
@@ -197,7 +196,7 @@
     flex-wrap: nowrap;
 
     @media (max-width: 640px) {
-      font-size: var(--header-title-md);
+      font-size: $header-title-md;
     }
   }
 }
@@ -216,15 +215,15 @@
     font-weight: 800;
 
     @media (max-width: 768px) {
-      font-size: var(--header-title-sm);
+      font-size: $header-title-sm;
     }
 
     @media (min-width: 1023px) {
-      font-size: var(--header-title-sm);
+      font-size: $header-title-sm;
     }
 
     @media (min-width: 1024px) {
-      font-size: var(--header-title-sm);
+      font-size: $header-title-sm;
     }
   }
 
@@ -233,16 +232,16 @@
     color: #559385;
 
     @media (max-width: 600px) {
-      font-size: var(--header-title-sm);
+      font-size: $header-title-sm;
     }
 
     @media (min-width: 1023px) {
-      font-size: var(--header-title-sm);
+      font-size: $header-title-sm;
 
     }
 
     @media (min-width: 1024px) {
-      font-size: var(--header-title-sm);
+      font-size: $header-title-sm;
     }
   }
 }

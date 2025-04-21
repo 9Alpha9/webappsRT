@@ -1,6 +1,5 @@
-:root {
-    --about-max-scale: 2440px;
-}
+$about-max-scale: 2440px;
+
 
 .aboutRtContainer {
     position: relative;
@@ -13,7 +12,7 @@
     }
 
     .aboutRtWrapper {
-        max-width: var(--about-max-scale);
+        max-width: $about-max-scale;
         margin: auto;
         justify-content: center;
         position: relative;

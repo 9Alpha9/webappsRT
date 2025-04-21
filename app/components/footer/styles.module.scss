@@ -1,29 +1,27 @@
-:root {
-    --footer-background: #081f1e;
-    --footer-text-color: #dadada;
-    --footer-text-sm: 0.9rem;
-    --footer-text-md: 1rem;
-    --footer-text-lg: 1.6rem;
-    --footer-text-xl: 2.6rem;
-    --footer-text-2xl: 3rem;
-    --footer-desktop-max: 24480px;
+$footer-background: #081f1e;
+$footer-text-color: #dadada;
+$footer-text-sm: 0.9rem;
+$footer-text-md: 1rem;
+$footer-text-lg: 1.6rem;
+$footer-text-xl: 2.6rem;
+$footer-text-2xl: 3rem;
+$footer-desktop-max: 24480px;
 
-    --footer-link-hover: #CCFFF6;
-    --footer-header-primary: #CCFFF6;
-    --footer-link-primary: #FFD2DD;
+$footer-link-hover: #CCFFF6;
+$footer-header-primary: #CCFFF6;
+$footer-link-primary: #FFD2DD;
 
-    --footer-background-bottom: #031110;
-    --footer-scale-bottom: 65%;
-    --footer-scale-bottoms: 1440px;
-}
+$footer-background-bottom: #031110;
+$footer-scale-bottom: 65%;
+
 
 
 .footerContainer {
-    background-color: var(--footer-background);
-    color: var(--footer-text-color);
+    background-color: $footer-background;
+    color: $footer-text-color;
 
     .footerWrapper {
-        max-width: var(--footer-desktop-max);
+        max-width: $footer-desktop-max;
         margin: auto;
         justify-content: center;
         display: flex;
@@ -47,11 +45,11 @@
 
                 .footerHeader {
                     font-weight: 700;
-                    color: var(--footer-header-primary);
-                    font-size: var(--footer-text-lg);
+                    color: $footer-header-primary;
+                    font-size: $footer-text-lg;
 
                     @media (max-width:768px) {
-                        font-size: var(--footer-text-md);
+                        font-size: $footer-text-md;
                     }
 
                 }
@@ -67,30 +65,30 @@
                     }
 
                     .footerKartarPh {
-                        font-size: var(--footer-text-md);
+                        font-size: $footer-text-md;
                         display: flex;
                         flex-direction: row;
                         gap: .7rem;
-                        color: var(--footer-link-primary);
+                        color: $footer-link-primary;
                         align-items: center;
 
                         @media (max-width: 768px) {
-                            font-size: var(--footer-text-sm);
+                            font-size: $footer-text-sm;
                         }
                     }
 
                     .footerLinksItem {
-                        font-size: var(--footer-text-sm);
+                        font-size: $footer-text-sm;
                     }
 
                     .footerLinksCta {
-                        color: var(--footer-link-primary);
+                        color: $footer-link-primary;
                         transition: ease-in-out .2s all;
                         display: inline-block;
-                        font-size: var(--footer-text-sm);
+                        font-size: $footer-text-sm;
 
                         @media (max-width: 768px) {
-                            font-size: var(--footer-text-sm);
+                            font-size: $footer-text-sm;
                             gap: 0.9rem;
                         }
 
@@ -107,14 +105,14 @@
 
     .footerBottom {
         padding: 1.2rem;
-        background-color: var(--footer-background-bottom);
+        background-color: $footer-background-bottom;
 
         @media (max-width: 768px) {
             padding: 2.5rem;
         }
 
         .footerBottomWrapper {
-            max-width: var(--footer-scale-bottoms);
+            max-width: $footer-scale-bottoms;
             margin: auto;
             justify-content: center;
             align-items: center;
@@ -127,7 +125,7 @@
             justify-content: space-between;
             gap: 2.5rem;
             flex-direction: row;
-            width: var(--footer-scale-bottoms);
+            width: $footer-scale-bottoms;
 
 
             @media (max-width:1000px) {
@@ -141,16 +139,16 @@
 
         .footerBootomItems {
             position: relative;
-            font-size: var(--footer-text-sm);
+            font-size: $footer-text-sm;
 
             @media (max-width: 600px) {
-                font-size: var(--footer-text-sm);
+                font-size: $footer-text-sm;
             }
 
 
             .footerBottomLinks {
                 font-weight: 700;
-                color: var(--footer-link-primary);
+                color: $footer-link-primary;
                 transition: ease-in-out .2s all;
 
                 &:hover {

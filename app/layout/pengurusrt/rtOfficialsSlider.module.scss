@@ -1,12 +1,12 @@
-:root {
-  --header-title: #0e3332;
-  --header-paragraph: #8f9190;
-  --header-size-medium: 2rem;
-  --header-size-small: 1.5rem;
-  --header-size-large: 3rem;
-  --header-text-weight: 700;
-  --paragprah-sm: 0.8rem;
-}
+$header-title: #0e3332;
+$header-paragraph: #8f9190;
+$header-size-medium: 2rem;
+$header-size-small: 1.5rem;
+$header-size-large: 3rem;
+$header-text-weight: 700;
+$paragraph-sm: 0.8rem;
+/* Perbaikan typo dari 'paragprah-sm' menjadi 'paragraph-sm' */
+
 
 .pengurusContainer {
   position: relative;
@@ -21,17 +21,17 @@
     padding: 2rem 2rem;
 
     p {
-      color: var(--header-paragraph);
+      color: $header-paragraph;
 
       @media (max-width: 768px) {
-        font-size: var(--paragprah-sm);
+        font-size: $paragraph-sm;
       }
     }
 
     h1 {
-      font-size: var(--header-size-large);
-      color: var(--header-title);
-      font-weight: var(--header-text-weight);
+      font-size: $header-size-large;
+      color: $header-title;
+      font-weight: $header-text-weight;
 
       @media (max-width: 768px) {
         // padding: 2rem 1rem;
