@@ -4,8 +4,6 @@ import FooterComp from "./components/footer/footerComp";
 import NavbarComp from "./components/navbarComp/navbar";
 const inter = Inter({ subsets: ["latin"] });
 import styles from "./global.module.scss";
-import PageTransition from "./components/PageTransition";
-import ScrollAnimation from "./components/ScrollAnimation";
 
 export const metadata = {
   title: {
@@ -52,9 +50,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <div className={styles.pageWrapper}>
           <NavbarComp />
-          <main className={styles.mainContent}>
-            <ScrollAnimation>{children}</ScrollAnimation>
-          </main>
+          <main className={styles.mainContent}>{children}</main>
           <FooterComp />
         </div>
       </body>

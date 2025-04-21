@@ -11,7 +11,7 @@ export default function PageTransition({ children }) {
         exit={{ opacity: 0, x: -20 }}
         transition={{
           duration: 0.9,
-          delay: 1, // delay 0.2 detik
+          delay: 0.2, // delay 0.2 detik
         }}
       >
         {children}

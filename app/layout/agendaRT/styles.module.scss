@@ -1,6 +1,6 @@
 $background-color: #0e3332;
 $foreground-color: #f8f9fa;
-$padding-agd: 2rem;
+$padding-agd: 1.2rem;
 $margin-agd: 2rem;
 $header-title-2xl: 3.5rem;
 $header-title-xl: 2.5rem;
@@ -19,7 +19,11 @@ $padding-agd: 2.7rem;
   border-radius: 1rem;
 
   @media (max-width: 768px) {
+    padding: 10px 14px 30px;
+    margin: 20px 0 26px;
+    border-radius: 0;
     margin-top: 4rem;
+    margin-bottom: 4rem;
   }
 
   @media (min-width: 1024px) {
@@ -102,6 +106,7 @@ $padding-agd: 2.7rem;
 
       @media (max-width: 600px) {
         flex-direction: column;
+        margin: 0 10px 0;
       }
     }
   }

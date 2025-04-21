@@ -1,9 +1,22 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import React from "react";
 import styles from "./styles.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+
 export default function FooterComp() {
+  const [year, setYear] = useState(new Date().getFullYear());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setYear(new Date().getFullYear());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <div className={styles.footerContainer}>
@@ -30,7 +43,7 @@ export default function FooterComp() {
                 </span>
                 <span className={styles.footerLinksItem}>
                   <Link className={styles.footerLinksCta} href="/#">
-                    Pengajuan Surat Lamaran Pekerjaan
+                    Pengajuan Surat RT
                   </Link>
                 </span>
                 <span className={styles.footerLinksItem}>
@@ -75,8 +88,7 @@ export default function FooterComp() {
               <div className={styles.footerBootomItems}>
                 <span>
                   Website ini seluruhnya dikelolah oleh Karang Taruna RT 50 dan
-                  Ketua RT 50. Copyright &copy; {new Date().getFullYear()} -
-                  made By{" "}
+                  Ketua RT 50. Copyright &copy; {year} - made By {""}
                   <Link
                     href="https://www.bagian.net"
                     target="_blank"
