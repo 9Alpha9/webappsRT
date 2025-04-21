@@ -15,10 +15,8 @@ const RTOfficialsSlider = () => {
     const fetchOfficials = async () => {
       try {
         const client = createClient(
-          "L6ijMiZe7ahs72zIf6nqvFK4bOY1ZIZSWoYCvKu2YhLtLY5HlQSi5sfq"
+          'https://api.unsplash.com/search/photos?query=${query}&per_page=10&page=4&client_id=L6ijMiZe7ahs72zIf6nqvFK4bOY1ZIZSWoYCvKu2YhLtLY5HlQSi5sfq"'
         );
-
-        // Data dummy pengurus RT (6 orang)
         const officialsData = [
           {
             id: 1,
@@ -32,7 +30,7 @@ const RTOfficialsSlider = () => {
           {
             id: 2,
             name: "Ani Wijaya",
-            position: "Sekretaris",
+            position: "Wakil Ketua RT",
             phone: "081234567891",
             email: "ani@example.com",
             period: "2023-2025",
@@ -41,7 +39,7 @@ const RTOfficialsSlider = () => {
           {
             id: 3,
             name: "Dedi Kurniawan",
-            position: "Bendahara",
+            position: "Sekretaris 1",
             // phone: "081234567892",
             email: "dedi@example.com",
             period: "2023-2025",
@@ -50,7 +48,7 @@ const RTOfficialsSlider = () => {
           {
             id: 4,
             name: "Rina Fitriani",
-            position: "Seksi Keamanan",
+            position: "Sekretaris 2",
             // phone: "081234567893",
             email: "rina@example.com",
             period: "2023-2025",
@@ -59,7 +57,7 @@ const RTOfficialsSlider = () => {
           {
             id: 5,
             name: "Ahmad Fauzi",
-            position: "Seksi Kebersihan",
+            position: "Bendahara",
             // phone: "081234567894",
             email: "ahmad@example.com",
             period: "2023-2025",
@@ -68,7 +66,7 @@ const RTOfficialsSlider = () => {
           {
             id: 6,
             name: "Siti Rahayu",
-            position: "Seksi Kesehatan",
+            position: "Seksi Keagamaan",
             // phone: "081234567895",
             email: "siti@example.com",
             period: "2023-2025",
@@ -77,7 +75,7 @@ const RTOfficialsSlider = () => {
           {
             id: 7,
             name: "Danang Aditya",
-            position: "Seksi Kesehatan",
+            position: "Seksi Kesejahteraan Sosial",
             // phone: "081234567895",
             email: "siti@example.com",
             period: "2023-2025",
@@ -86,7 +84,25 @@ const RTOfficialsSlider = () => {
           {
             id: 8,
             name: "Ramlan Oktavia",
-            position: "Seksi Kesehatan",
+            position: "Seksi Pembangunan ",
+            // phone: "081234567895",
+            email: "siti@example.com",
+            period: "2023-2025",
+            query: "asian woman nurse portrait",
+          },
+          {
+            id: 9,
+            name: "Rani Adi",
+            position: "Seksi Pemberdayaan",
+            // phone: "081234567895",
+            email: "siti@example.com",
+            period: "2023-2025",
+            query: "asian woman nurse portrait",
+          },
+          {
+            id: 10,
+            name: "Jamil Harun",
+            position: "Seksi Keamanan",
             // phone: "081234567895",
             email: "siti@example.com",
             period: "2023-2025",
@@ -167,7 +183,6 @@ const RTOfficialsSlider = () => {
               pagination: false,
               autoplay: true,
               pauseOnHover: true,
-              // focus: "center",
               trimSpace: false,
               breakpoints: {
                 640: {

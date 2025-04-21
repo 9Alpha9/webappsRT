@@ -84,17 +84,17 @@ export default function Navbar() {
                 Beranda
               </Link>
               <Link
-                href="/ajuan-formulir"
+                href="/#"
                 className={`${styles.navLink} ${
-                  pathname === "/ajuan-formulir" ? styles.active : ""
+                  pathname === "/#" ? styles.active : ""
                 }`}
               >
                 Ajuan Formulir
               </Link>
               <Link
-                href="/ajuan-formulir"
+                href="/#"
                 className={`${styles.navLink} ${
-                  pathname === "/ajuan-formulir" ? styles.active : ""
+                  pathname === "/#" ? styles.active : ""
                 }`}
               >
                 Aduan Warga
