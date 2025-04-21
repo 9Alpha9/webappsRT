@@ -3,6 +3,8 @@ $login-button-hover: #16514f;
 $cta-color-primary: #0e3332;
 $cta-color-hover: #16514f;
 $cta-background-after: #0e3332;
+$max-width: 2220px;
+$font-topnav: 0.6rem;
 
 .topNav {
   background-color: #f8f9fa;
@@ -15,14 +17,14 @@ $cta-background-after: #0e3332;
   .topNavItems {
     display: flex;
     justify-content: space-between;
-    max-width: 2440px;
+    max-width: $max-width;
     margin: auto;
   }
 
 
-  @media (max-width: 768px) {
+  @media (max-width: 640px) {
     padding: 0.5rem 1rem;
-    font-size: 0.75rem;
+    font-size: $font-topnav;
   }
 }
 
@@ -41,7 +43,7 @@ $cta-background-after: #0e3332;
   font-weight: 600;
   color: #0e3332;
 
-  @media (max-width: 480px) {
+  @media (max-width: 640px) {
     display: none;
   }
 }
@@ -97,7 +99,7 @@ $cta-background-after: #0e3332;
   }
 
   .navContent {
-    max-width: 2440px;
+    max-width: $max-width;
     margin: auto;
   }
 }

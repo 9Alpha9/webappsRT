@@ -25,7 +25,7 @@ export default function FooterComp() {
                 </span>
                 <span className={styles.footerLinksItem}>
                   <Link className={styles.footerLinksCta} href="/#">
-                    Pengajuan Surat Fakir Miskin
+                    Pengajuan Surat Keterangan Tidak Mampu
                   </Link>
                 </span>
                 <span className={styles.footerLinksItem}>

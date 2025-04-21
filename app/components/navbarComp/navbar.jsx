@@ -34,11 +34,11 @@ export default function Navbar() {
         <div className={styles.topNavItems}>
           <div className={styles.topNavLeft}>
             <div className={styles.emailInfo}>
-              <FontAwesomeIcon icon={faEnvelope} />
+              <FontAwesomeIcon icon={faEnvelope} className="w-3  h-3" />
               <span>info@kartart50.com</span>
             </div>
             <div className={styles.phoneInfo}>
-              <FontAwesomeIcon icon={faPhone} />
+              <FontAwesomeIcon icon={faPhone} className="w-3 h-3" />
               <span>(+62) 123-456-789</span>
             </div>
           </div>

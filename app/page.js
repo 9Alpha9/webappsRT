@@ -9,13 +9,11 @@ export default function Home() {
       {/* <div className="text-gray-950">Frontend</div> */}
 
       <div className={`${Styles.pageContainer} `}>
-        <ScrollAnimation delay={0.2}>
-          <SliderBanner />
-        </ScrollAnimation>
-        <ScrollAnimation delay={0.8}>
+        <SliderBanner />
+        <ScrollAnimation delay={1}>
           <RTOfficialsSlider />
         </ScrollAnimation>
-        <ScrollAnimation delay={1}>
+        <ScrollAnimation delay={1.2}>
           <AgendaKegiatanRT />
         </ScrollAnimation>
       </div>

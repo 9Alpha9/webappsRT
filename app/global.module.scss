@@ -1,5 +1,7 @@
+$max-width: 2300px;
+
 .pageContainer {
-  max-width: 2500px;
+  max-width: $max-width;
   margin: 0 auto;
 }
 

@@ -10,11 +10,24 @@ $paragraph-sm: 0.8rem;
 
 .pengurusContainer {
   position: relative;
-  margin: 4rem 0;
+  // margin-top: 18rem;
 
   @media (max-width: 640px) {
-    margin: 2rem 0;
+    // padding-top: 3rem;
   }
+
+  // @media (min-width: 768px) {
+  //   margin: 15rem 0;
+  // }
+
+  // @media (min-width: 1024px) {
+  //   margin-top: 15rem;
+  // }
+
+
+  // @media (min-width: 1024px) {
+  //   margin: 8rem 0;
+  // }
 
   .pengurusHeader {
     text-align: center;

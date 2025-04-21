@@ -17,7 +17,15 @@ $padding-agd: 2.7rem;
   padding: $padding-agd;
   margin: $margin-agd;
   border-radius: 1rem;
-  margin-top: 10rem;
+
+  @media (max-width: 768px) {
+    margin-top: 4rem;
+  }
+
+  @media (min-width: 1024px) {
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+  }
 
   .agendaHeader {
     padding: 3rem 0;
