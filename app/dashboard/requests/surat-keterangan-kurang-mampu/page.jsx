@@ -2,9 +2,12 @@ import React from "react";
 
 const UserData = () => {
   return (
-    <div>
-      <h1>Surat Keterangan Kurang Mampu</h1>
-    </div>
+    <>
+      <title>Pengajuan Surat Keterangan Kurang Mampu</title>
+      <div>
+        <h1>Surat Keterangan Kurang Mampu</h1>
+      </div>
+    </>
   );
 };
 

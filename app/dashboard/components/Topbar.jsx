@@ -10,12 +10,12 @@ const Topbar = ({ toggleSidebar }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
-    <div className="sticky top-0 z-40 bg-white border-b border-gray-200 text-black">
+    <div className="sticky top-0 z-40 bg-white border-b border-gray-200 text-black ">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center">
           <button
             onClick={toggleSidebar}
-            className="p-2 rounded-lg hover:bg-gray-100 md:hidden"
+            className="p-2 rounded-lg hover:bg-gray-100 md:hidden cursor-pointer"
           >
             <Bars3Icon className="w-6 h-6" />
           </button>
@@ -31,7 +31,7 @@ const Topbar = ({ toggleSidebar }) => {
           <div className="relative">
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100"
+              className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 cursor-pointer"
             >
               <UserCircleIcon className="w-6 h-6" />
             </button>

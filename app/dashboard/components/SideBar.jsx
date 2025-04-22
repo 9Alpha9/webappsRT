@@ -53,7 +53,7 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
         <div key={index}>
           <button
             onClick={() => setIsPengajuanOpen(!isPengajuanOpen)}
-            className={`w-full flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-gray-100 cursor-pointer ${
+            className={`w-full flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-gray-100 cursor-pointer  ${
               isActive ? "bg-gray-100" : ""
             }`}
           >
@@ -73,7 +73,7 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
           </button>
 
           {isPengajuanOpen && (!isCollapsed || isMobile) && (
-            <div className="ml-6">
+            <div className="ml-6 transition-all duration-300 ease-in-out">
               {item.dropdownItems.map((dropdownItem, idx) => (
                 <Link
                   key={idx}
@@ -153,11 +153,15 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed inset-0 z-50 bg-black bg-opacity-50 transition-opacity md:hidden ${
-          isOpen ? "opacity-50" : "opacity-0"
-        }`}
+        className={`fixed inset-0 z-50 bg-black transition-opacity md:hidden
+    ${
+      isOpen
+        ? "opacity-50 pointer-events-auto"
+        : "opacity-0 pointer-events-none"
+    }`}
         onClick={toggleSidebar}
       />
+
       <div
         className={`fixed text-black inset-y-0 left-0 z-50 w-64 bg-white transform transition-transform duration-300 md:hidden ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -175,7 +179,11 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
               <ChevronLeftIcon className="w-5 h-5" />
             </button>
           </div>
-          <nav className="flex-1 overflow-y-auto">
+          <nav
+            className={`flex-1 overflow-y-auto transition-all duration-300 ease-in-out ${
+              isOpen ? "max-h-96" : "max-h-0"
+            }`}
+          >
             {menuItems.map((item, index) => renderMenuItem(item, index, true))}
           </nav>
         </div>

@@ -4,15 +4,14 @@ import "./globals.css";
 import FooterComp from "./components/footer/footerComp";
 import NavbarComp from "./components/navbarComp/navbar";
 import { usePathname } from "next/navigation";
-
 import { MetaData } from "./metada";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isDashboard = /^\/dashboard(\/.*)?$/.test(pathname);
   const isLogin = /^\/login(\/.*)?$/.test(pathname);
+
   return (
     <html lang="id">
       <title>{MetaData.title.default}</title>
