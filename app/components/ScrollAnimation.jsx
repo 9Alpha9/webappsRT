@@ -13,12 +13,13 @@ export default function ScrollAnimation({ children, delay = 0.3 }) {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 100 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
+      exit={{ opacity: 0, y: -100 }}
       transition={{
-        duration: 0.8,
+        duration: 1.5,
         delay: 0.9,
-        ease: "easeOut",
+        ease: [1, 0.06, 0.22, 0.83],
       }}
     >
       {children}

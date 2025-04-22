@@ -15,7 +15,7 @@ const RTOfficialsSlider = () => {
     const fetchOfficials = async () => {
       try {
         const client = createClient(
-          'https://api.unsplash.com/search/photos?query=${query}&per_page=10&page=4&client_id=L6ijMiZe7ahs72zIf6nqvFK4bOY1ZIZSWoYCvKu2YhLtLY5HlQSi5sfq"'
+          "L6ijMiZe7ahs72zIf6nqvFK4bOY1ZIZSWoYCvKu2YhLtLY5HlQSi5sfq"
         );
         const officialsData = [
           {

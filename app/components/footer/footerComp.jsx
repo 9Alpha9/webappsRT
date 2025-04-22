@@ -7,8 +7,22 @@ import styles from "./styles.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import PageTransition from "../PageTransition";
+import { useRouter } from "next/navigation";
 
 export default function FooterComp() {
+  const router = useRouter();
+  const handleLinkClick = (e, href) => {
+    e.preventDefault();
+    const pageTransition = {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
+      transition: { duration: 2, delay: 0.5 },
+    };
+    router.push(href);
+  };
+
   const [year, setYear] = useState(new Date().getFullYear());
   useEffect(() => {
     const interval = setInterval(() => {
@@ -101,12 +115,19 @@ export default function FooterComp() {
               <div className={styles.footerBootomItems}>
                 <div className={styles.footerLinkWrapper}>
                   <span className={styles.footerBottomCta}>
-                    <Link className={styles.footerBottomLinks} href="/#">
+                    <Link
+                      className={styles.footerBottomLinks}
+                      href="/privacy-policy"
+                      onClick={(e) => handleLinkClick(e, "/privacy-policy")}
+                    >
                       Privacy Policy
                     </Link>
                   </span>
                   <span className={styles.footerBottomCta}>
-                    <Link className={styles.footerBottomLinks} href="/#">
+                    <Link
+                      className={styles.footerBottomLinks}
+                      href="/terms-and-conditions"
+                    >
                       Terms & Condition
                     </Link>
                   </span>
