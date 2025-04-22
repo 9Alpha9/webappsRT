@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
-import ScrollAnimation from "../components/ScrollAnimation";
+import ScrollAnimation from "../../components/ScrollAnimation";
 
 export const metadata = {
   title: "Tentang RT 50",

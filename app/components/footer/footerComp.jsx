@@ -7,7 +7,6 @@ import styles from "./styles.module.scss";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import PageTransition from "../PageTransition";
 import { useRouter } from "next/navigation";
 
 export default function FooterComp() {
@@ -88,7 +87,10 @@ export default function FooterComp() {
               </div>
               <div className={styles.footerLinks}>
                 <span>
-                  <Link className={styles.footerLinksCta} href="/tentang-rt50">
+                  <Link
+                    className={styles.footerLinksCta}
+                    href="/page/tentang-rt50"
+                  >
                     Ruang Lingkup Kehidupan RT 50
                   </Link>
                 </span>
@@ -117,8 +119,10 @@ export default function FooterComp() {
                   <span className={styles.footerBottomCta}>
                     <Link
                       className={styles.footerBottomLinks}
-                      href="/privacy-policy"
-                      onClick={(e) => handleLinkClick(e, "/privacy-policy")}
+                      href="/page/privacy-policy"
+                      onClick={(e) =>
+                        handleLinkClick(e, "/page/privacy-policy")
+                      }
                     >
                       Privacy Policy
                     </Link>

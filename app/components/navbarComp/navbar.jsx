@@ -5,11 +5,17 @@ import { usePathname } from "next/navigation";
 import styles from "./styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const pathname = usePathname();
+
+  const router = useRouter();
+  const handleLogin = () => {
+    router.push("/login");
+  };
 
   // Menutup menu saat pathname berubah
   useEffect(() => {
@@ -100,14 +106,21 @@ export default function Navbar() {
                 Aduan Warga
               </Link>
               <Link
-                href="/tentang-rt50"
+                href="/page/tentang-rt50"
                 className={`${styles.navLink} ${
-                  pathname === "/tentang-rt50" ? styles.active : ""
+                  pathname === "/page/tentang-rt50" ? styles.active : ""
                 }`}
               >
                 Tentang RT 50
               </Link>
-              <button className={styles.loginButton}>Login</button>
+              <button className={styles.loginButton} onClick={handleLogin}>
+                <Link
+                  href="/login"
+                  // onClick={() => console.log("Login clicked")}
+                >
+                  Login
+                </Link>
+              </button>
               <div className={styles.navOverlay}>
                 <span>
                   <FontAwesomeIcon icon={faEnvelope} />
