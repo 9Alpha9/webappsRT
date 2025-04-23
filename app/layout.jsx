@@ -11,6 +11,7 @@ export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isDashboard = /^\/dashboard(\/.*)?$/.test(pathname);
   const isLogin = /^\/login(\/.*)?$/.test(pathname);
+  const isRegister = /^\/register(\/.*)?$/.test(pathname);
 
   return (
     <html lang="id">
@@ -24,9 +25,9 @@ export default function RootLayout({ children }) {
         content={MetaData.openGraph.description}
       />
       <body className={inter.className}>
-        {!isDashboard && !isLogin && <NavbarComp />}
+        {!isDashboard && !isLogin && !isRegister && <NavbarComp />}
         {children}
-        {!isDashboard && !isLogin && <FooterComp />}
+        {!isDashboard && !isLogin && !isRegister && <FooterComp />}
       </body>
     </html>
   );

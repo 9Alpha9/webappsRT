@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import Sidebar from "./components/SideBar";
-import Topbar from "./components/Topbar";
+import Sidebar from "./components/sideBar/SideBar";
+import Topbar from "./components/topBar/Topbar";
 import { MetaData } from "./components/meta/DbMetaData";
 
 export default function DashboardLayout({ children }) {
@@ -36,7 +36,7 @@ export default function DashboardLayout({ children }) {
           }`}
         >
           <Topbar toggleSidebar={toggleSidebar} />
-          <main className="p-6">{children}</main>
+          <main className="p-6 mt-16">{children}</main>
         </div>
       </div>
     </>
