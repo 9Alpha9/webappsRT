@@ -50,7 +50,7 @@ const SuratKematian = () => {
   return (
     <>
       <title>Pengajuan Surat Kematian</title>
-      <div className="container bg-gray-100 p-5 rounded-md drop-shadow-md">
+      <div className="bg-gray-100 p-5 rounded-md drop-shadow-md">
         <div className="informationDialogue">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
