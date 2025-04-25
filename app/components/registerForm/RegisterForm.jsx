@@ -74,8 +74,8 @@ export default function RegisterForm() {
             </div>
           </section>
         </div>
-        <section className=" h-screen w-full">
-          <div className="flex justify-between items-center m-8 align-middle">
+        <section className="h-screen w-full">
+          <div className="flex justify-between items-start sm:items-center align-middle m-8 sm:flex-row flex-col">
             <div className="bg-slate-800 text-indigo-100 p-2 px-8  text-sm flex items-center justify-center rounded-full flex-wrap">
               <Link href="/">
                 <motion.span
@@ -112,13 +112,18 @@ export default function RegisterForm() {
                 </motion.span>
               </Link>
             </div>
-            <span className="text-xs text-stone-200 ">Apps Ver.0.0.1</span>
+            <span className="text-xs text-stone-200 block items-center py-4 sm:py-0">
+              Apps Ver.0.0.1
+            </span>
           </div>
-          <div className="flex flex-col items-center justify-center p-16">
+          <div className="flex flex-col items-center justify-center">
             <h2 className="font-extrabold text-stone-200 text-2xl">
               Daftar Akun Baru
             </h2>
-            <form onSubmit={handleSubmit} className="mt-8 w-8/12">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-8 sm:w-8/12 w-full p-3 sm:p-8"
+            >
               <div className="formWrapper relative space-y-6 bg-slate-900 p-6 rounded-lg shadow-md">
                 <div className="sectionName">
                   <span className="sectionInputItems">
@@ -256,7 +261,7 @@ export default function RegisterForm() {
                 <div className="text-center">
                   <Link
                     href="/login"
-                    className="text-sm text-blue-200 hover:text-blue-300 transition-all duration-300 ease-in-out"
+                    className="text-xs sm:text-sm text-blue-200 hover:text-blue-300 transition-all duration-300 ease-in-out"
                   >
                     Sudah punya akun? Masuk di sini
                   </Link>
