@@ -7,6 +7,18 @@ html {
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --dashboard-sidebar: #262063;
+  --dashboard-sidebar-active: #185b48;
+  --dashboard-sidebar-hover: #0e5b46;
+  --dashboard-topbar: #ffffff;
+  --dashboard-topbar-profile: #1e8269;
+  --dashboard-topbar-text: #246c5a;
+  --dashboard-border-primary: #246c5a;
+  --dashboard-topbar-hover: #268f75;
+  --dashboard-topbar-profile-hover: #167059;
+  --dashboard-button-primary: #0f392d;
+  --dashboard-button-hover: #0e5b46;
+  --dashboard-primary: #0f2d49;
 }
 
 @theme inline {
@@ -27,4 +39,18 @@ body {
   /* background: var(--background); */
   color: var(--foreground);
   font-family: Arial, Helvetica, Inter, sans-serif;
+}
+
+@theme {
+  --color-dashboard-sidebar: var(--dashboard-sidebar);
+  --color-dashboard-sidebar-active: var(--dashboard-sidebar-active);
+  --color-dashboard-sidebar-hover: var(--dashboard-sidebar-hover);
+  --color-dashboard-topbar: var(--dashboard-topbar);
+  --color-dashboard-border-primary: var(--dashboard-border-primary);
+  --color-dashboard-topbar-hover: var(--dashboard-topbar-hover);
+  --color-dashboard-topbar-profile: var(--dashboard-topbar-profile);
+  --color-dashboard-topbar-profile-hover: var(--dashboard-topbar-profile-hover);
+  --color-dashboard-button-primary: var(--dashboard-button-primary);
+  --color-dashboard-button-hover: var(--dashboard-button-hover);
+  --color-dashboard-primary: var(--dashboard-primary);
 }

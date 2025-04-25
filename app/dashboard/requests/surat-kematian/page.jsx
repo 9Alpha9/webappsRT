@@ -50,117 +50,127 @@ const SuratKematian = () => {
   return (
     <>
       <title>Pengajuan Surat Kematian</title>
-      <div className="bg-gray-100 p-5 rounded-md drop-shadow-md">
-        <div className="informationDialogue">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6 cursor-pointer"
-            onClick={() => setShowDialog(true)}
-          >
-            <div className="flex items-center gap-3">
-              <InformationCircleIcon className="h-6 w-6 text-blue-500" />
-              <h3 className="text-lg font-semibold text-blue-800">
-                Alur Penyerahan Surat Kematian
-              </h3>
-            </div>
-            <p className="mt-2 text-sm text-blue-600">
-              Klik untuk melihat informasi lengkap tentang alur penyerahan surat
-              kematian
-            </p>
-          </motion.div>
-
-          <AnimatePresence>
-            {showDialog && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
-                className="rounded-md absolute inset-0 bg-black/70 flex items-center justify-center z-50"
-                onClick={() => setShowDialog(false)}
-              >
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className=" bg-white fixed top-0 mt-18 p-6 rounded-lg shadow-xl max-w-xs md:max-w-2xl w-full mx-4"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-md md:text-xl font-semibold">
-                      Alur Penyerahan Surat Kematian
-                    </h2>
-                    <button
-                      onClick={() => setShowDialog(false)}
-                      className="text-gray-500 hover:text-gray-700"
-                    >
-                      <XMarkIcon className="h-6 w-6 cursor-pointer" />
-                    </button>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="bg-blue-100 rounded-full p-2">
-                        <CheckCircleIcon className="h-5 w-5 text-blue-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium">1. Pengisian Formulir</h3>
-                        <p className="text-sm text-gray-600 my-2">
-                          Isi formulir pengajuan surat kematian dengan data
-                          lengkap dan benar. Harap diperhatikan jika terdapat
-                          data yang salah, maka surat pengajuan kematian akan
-                          lama di proses mengingat pengurus dan Ketua RT akan
-                          memverifikasi data yang telah diisi.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <div className="bg-blue-100 rounded-full p-2">
-                        <CheckCircleIcon className="h-5 w-5 text-blue-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium">2. Verifikasi Data</h3>
-                        <p className="text-sm text-gray-600 my-2">
-                          Sistem akan secara otomatis memverifikasi data yang
-                          telah diisi, jika ada data yang salah, maka surat
-                          pengajuan kematian akan mengalami penundaan pengajuan.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="bg-blue-100 rounded-full p-2">
-                        <CheckCircleIcon className="h-5 w-5 text-blue-600" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium">3. Pengambilan Surat</h3>
-                        <p className="text-sm text-gray-600 my-2">
-                          Surat pengajuan kematian dapat diambil atau diserahkan
-                          secara langsung oleh Ketua RT 50 kepada yang
-                          bersangkutan, setelah data yang di isi oleh pemohon
-                          sesuai dengan data yang ada di keluarga
-                          almarhum/almarhumah.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base/7 font-medium text-gray-900">
+      <div className="bg-gray-100 p-5 rounded-lg">
+        <div className="flex items-center justify-between border-b border-gray-900/10 pb-4 md:flex-row flex-col">
+          <span className="block py-4 ">
+            <h2 className="text-base/7 md:text-3xl font-semibold text-gray-900">
               Pengajuan Surat Kematian
             </h2>
-            <p className="mt-1 text-sm/6 text-gray-600">
+            <p className="mt-1 text-md text-gray-500 font-light">
               Silakan isi data almarhum/almarhumah dengan lengkap dan benar.
             </p>
+          </span>
+          <div className="informationDialogue">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6 cursor-pointer"
+              onClick={() => setShowDialog(true)}
+            >
+              <div className="flex items-center gap-3">
+                <InformationCircleIcon className="h-6 w-6 text-blue-500" />
+                <h3 className="text-xs md:text-md font-semibold text-blue-800">
+                  Alur Penyerahan Surat Kematian
+                </h3>
+              </div>
+              <p className="mt-2 text-xs md:text-sm text-blue-600 md:text-end hidden md:block">
+                Klik untuk melihat informasi lengkap.
+              </p>
+            </motion.div>
 
+            <AnimatePresence>
+              {showDialog && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                  className="rounded-md fixed inset-0 bg-black/70 flex items-center justify-center z-50 h-screen"
+                  // onClick={() => setShowDialog(false)}
+                >
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className=" bg-white fixed top-0 mt-18 p-6 rounded-lg shadow-xl max-w-xs md:max-w-2xl w-full mx-4"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="relative mb-4">
+                      <span className="absolute top-0 right-0">
+                        <button
+                          onClick={() => setShowDialog(false)}
+                          className="text-gray-500 hover:text-gray-700"
+                        >
+                          <XMarkIcon className="h-6 w-6 cursor-pointer" />
+                        </button>
+                      </span>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="bg-blue-100 rounded-full p-2">
+                          <CheckCircleIcon className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium">1. Pengisian Formulir</h3>
+                          <p className="text-sm text-gray-600 my-2">
+                            Isi formulir pengajuan surat kematian dengan data
+                            lengkap dan benar. Harap diperhatikan jika terdapat
+                            data yang salah, maka surat pengajuan kematian akan
+                            lama di proses mengingat pengurus dan Ketua RT akan
+                            memverifikasi data yang telah diisi.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-3">
+                        <div className="bg-blue-100 rounded-full p-2">
+                          <CheckCircleIcon className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium">2. Verifikasi Data</h3>
+                          <p className="text-sm text-gray-600 my-2">
+                            Sistem akan secara otomatis memverifikasi data yang
+                            telah diisi, jika ada data yang salah, maka surat
+                            pengajuan kematian akan mengalami penundaan
+                            pengajuan.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="bg-blue-100 rounded-full p-2">
+                          <CheckCircleIcon className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <h3 className="font-medium">3. Pengambilan Surat</h3>
+                          <p className="text-sm text-gray-600 my-2">
+                            Surat pengajuan kematian dapat diambil atau
+                            diserahkan secara langsung oleh Ketua RT 50 kepada
+                            yang bersangkutan, setelah data yang di isi oleh
+                            pemohon sesuai dengan data yang ada di keluarga
+                            almarhum/almarhumah.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+        <form onSubmit={handleSubmit}>
+          {/* <div className="mt-6 flex items-center gap-x-6">
+            <button
+              type="submit"
+              className="rounded-md cursor-pointer bg-dashboard-button-primary px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-dashboard-button-hover transition-all duration-300 ease-in-out"
+            >
+              Ajukan Surat Pengajuan Kematian
+            </button>
+          </div> */}
+          <div className="border-b border-gray-900/10 pb-12 mt-18">
             <section className="my-6 sectionDateKematian border-b border-gray-900/10 pb-16">
               <span className="block font-bold text-gray-900 py-4 border-b border-gray-900/10">
                 <h2>Hari / Tanggal Kematian Almarhum/Almarhumah</h2>
@@ -369,17 +379,17 @@ const SuratKematian = () => {
                 </div>
                 <div className="col-span-1">
                   <label
-                    htmlFor="tanggalKematian"
+                    htmlFor="tanggalLahir"
                     className="block text-sm/6 font-medium text-gray-900"
                   >
                     Tanggal / Bulan / Tahun Lahir
                   </label>
                   <div className="mt-2">
                     <input
-                      id="tanggalKematian"
-                      name="tanggalKematian"
+                      id="tanggalLahir"
+                      name="tanggalLahir"
                       type="date"
-                      value={formData.tanggalKematian}
+                      value={formData.tanggalLahir}
                       onChange={handleInputChange}
                       required
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -505,7 +515,7 @@ const SuratKematian = () => {
             </button>
             <button
               type="submit"
-              className="rounded-md cursor-pointer bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="rounded-md cursor-pointer bg-dashboard-button-primary px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-dashboard-button-hover transition-all duration-300 ease-in-out"
             >
               Ajukan Surat Pengajuan Kematian
             </button>

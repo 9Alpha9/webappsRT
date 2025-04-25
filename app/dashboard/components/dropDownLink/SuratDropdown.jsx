@@ -11,6 +11,7 @@ const SuratDropdown = () => {
     "Surat Keterangan Kurang Mampu",
     "Surat Keterangan Usaha",
     "Surat Keterangan Belum Menikah",
+    "Surat Keterangan Pindah",
   ];
 
   return (

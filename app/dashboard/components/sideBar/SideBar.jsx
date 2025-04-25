@@ -12,7 +12,7 @@ import {
   ChevronDownIcon,
   CalendarIcon,
 } from "@heroicons/react/24/outline";
-
+import styles from "./styles.module.scss";
 const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
   const pathname = usePathname();
   const [isPengajuanOpen, setIsPengajuanOpen] = useState(false);
@@ -37,12 +37,16 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
           path: "/dashboard/requests/surat-keterangan-kurang-mampu",
         },
         {
-          label: "Surat Keterangan Usaha",
-          path: "/dashboard/requests/#",
+          label: "Surat Keterangan Bidang Usaha",
+          path: "/dashboard/#",
         },
         {
           label: "Surat Keterangan Belum Menikah",
-          path: "/dashboard/requests/#",
+          path: "/dashboard/#",
+        },
+        {
+          label: "Surat Keterangan Pindah Kependudukan",
+          path: "/dashboard/#",
         },
       ],
     },
@@ -67,8 +71,8 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
         <div key={index}>
           <button
             onClick={() => setIsPengajuanOpen(!isPengajuanOpen)}
-            className={`w-full flex items-center justify-between px-4 py-3 text-slate-100 hover:bg-slate-700 cursor-pointer transition-all duration-300 ease-in-out  ${
-              isActive ? "bg-slate-700" : ""
+            className={`w-full flex items-center justify-between px-4 py-3 text-slate-100 hover:bg-dashboard-sidebar-hover cursor-pointer transition-all duration-300 ease-in-out  ${
+              isActive ? "bg-dashboard-sidebar-active" : ""
             }`}
           >
             <div className="flex items-center">
@@ -87,13 +91,17 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
           </button>
 
           {isPengajuanOpen && (!isCollapsed || isMobile) && (
-            <div className="transition-all duration-300 ease-in-out p-3 ">
+            <div
+              className={`${styles.dropDown} transition-all duration-300 ease-in-out p-3`}
+            >
               {item.dropdownItems.map((dropdownItem, idx) => (
                 <Link
                   key={idx}
                   href={dropdownItem.path}
-                  className={`px-10 block py-2 my-3  text-sm text-slate-200 rounded-lg hover:bg-slate-600 transition-all duration-300 ${
-                    pathname === dropdownItem.path ? "bg-slate-600" : ""
+                  className={`px-9.5 md:px-10 block py-3  my-3 text-slate-200 rounded-md hover:bg-dashboard-sidebar-hover transition-all duration-300 md:text-[.8rem] text-xs ${
+                    pathname === dropdownItem.path
+                      ? "bg-dashboard-sidebar-active/55 backdrop-blur-2xl"
+                      : ""
                   }`}
                   onClick={isMobile ? toggleSidebar : undefined}
                 >
@@ -110,14 +118,14 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
       <Link
         key={index}
         href={item.path}
-        className={`flex items-center px-4 py-3 text-slate-100 hover:bg-slate-700 my-3 transition-all duration-300 ease-in-out ${
-          isActive ? "bg-slate-700" : ""
+        className={`flex items-center px-4 py-3 text-slate-100 hover:bg-dashboard-sidebar-hover my-3 transition-all duration-300 ease-in-out ${
+          isActive ? "bg-dashboard-sidebar-active/55 backdrop-blur-2xl" : ""
         }`}
         onClick={isMobile ? toggleSidebar : undefined}
       >
         <Icon className="w-5 h-5" />
         {(!isCollapsed || isMobile) && (
-          <span className="ml-3">{item.label}</span>
+          <span className="mx-3">{item.label}</span>
         )}
       </Link>
     );
@@ -127,21 +135,23 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
     <>
       {/* Desktop Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 bg-slate-800 border-slate-600 border-r transition-all duration-300 ${
+        className={`${
+          styles.sidebarContainer
+        } fixed inset-y-0 left-0 z-50 border-dashboard-border-primary border-r transition-all duration-300 ${
           isCollapsed ? "w-16" : "w-64"
         } hidden md:block`}
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center justify-between p-3.5 border-b border-slate-600">
+          <div className="flex items-center justify-between p-3.5 border-b border-dashboard-border-primary">
             {!isCollapsed && (
-              <span className="text-xl font-semibold text-white whitespace-nowrap">
+              <span className="font-semibold text-white whitespace-nowrap md:text-xl text-xs">
                 Admin Panel
               </span>
             )}
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="p-2 rounded-lg hover:bg-slate-600 text-white cursor-pointer transition-all duration-300 ease-in-out"
+              className="p-2 rounded-lg hover:bg-dashboard-sidebar-hover text-white cursor-pointer transition-all duration-300 ease-in-out"
             >
               {isCollapsed ? (
                 <ChevronRightIcon className="w-5 h-5" />
@@ -177,24 +187,26 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
       />
 
       <div
-        className={`fixed text-white inset-y-0 left-0 z-50 max-w-64 bg-slate-800 transform transition-transform duration-300 md:hidden ${
+        className={`${
+          styles.sidebarContainer
+        } fixed text-white inset-y-0 left-0 z-50 w-[16rem] transform transition-transform duration-300 md:hidden md:text-md text-xs ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-4 border-b border-slate-600">
-            <span className="text-xl font-semibold text-white">
+          <div className="flex items-center justify-between p-4 border-b border-dashboard-border-primary">
+            <span className="md:text-xl text-lg font-semibold text-white">
               Admin Panel
             </span>
             <button
               onClick={toggleSidebar}
-              className="p-1 rounded-lg hover:bg-slate-600"
+              className="p-1 rounded-lg hover:bg-dashboard-sidebar-hover"
             >
               <ChevronLeftIcon className="w-5 h-5" />
             </button>
           </div>
           <nav
-            className={`flex-1 overflow-y-auto transition-all duration-300 ease-in-out ${
+            className={`p-2 flex-1 overflow-y-auto transition-all duration-300 ease-in-out ${
               isOpen ? "h-full" : "max-h-0"
             }`}
           >

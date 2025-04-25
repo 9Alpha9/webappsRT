@@ -33,18 +33,18 @@ export default function DashboardPage() {
           return (
             <div
               key={stat.name}
-              className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              className="p-6 bg-dashboard-primary rounded-lg shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">
+                  <p className="text-sm font-medium text-gray-100">
                     {stat.name}
                   </p>
-                  <p className="mt-2 text-3xl font-semibold text-gray-900">
+                  <p className="mt-2 text-3xl font-semibold text-stone-50">
                     {stat.value}
                   </p>
                 </div>
-                <div className="p-3 bg-blue-50 rounded-full">
+                <div className="p-3 bg-blue-200 rounded-full">
                   <Icon className="w-6 h-6 text-blue-600" />
                 </div>
               </div>
@@ -71,8 +71,8 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Activity Chart */}
         <div className=" bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="bg-green-950 p-3 pl-6">
-            <h3 className="text-lg font-medium  text-white">
+          <div className="bg-slate-900 p-3 pl-6">
+            <h3 className="text-lg font-medium  text-stone-50">
               Aktivitas Terbaru
             </h3>
           </div>
@@ -86,8 +86,8 @@ export default function DashboardPage() {
 
         {/* Recent Requests */}
         <div className=" bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="bg-green-950 p-3 pl-6">
-            <h3 className="text-lg font-medium  text-white">
+          <div className="bg-slate-900 p-3 pl-6">
+            <h3 className="text-lg font-medium  text-stone-50">
               Pengajuan Terbaru
             </h3>
           </div>
@@ -128,8 +128,8 @@ export default function DashboardPage() {
 
       {/* Recent Activities */}
       <div className=" bg-white rounded-lg shadow-sm overflow-hidden">
-        <div className="bg-green-950 p-3 pl-6">
-          <h3 className="text-lg font-medium  text-white">Agenda Terbaru</h3>
+        <div className="bg-slate-900 p-3 pl-6">
+          <h3 className="text-lg font-medium  text-stone-50">Agenda Terbaru</h3>
         </div>
         <div className="mt-4 p-6">
           <div className="flow-root">

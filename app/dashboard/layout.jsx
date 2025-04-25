@@ -36,7 +36,7 @@ export default function DashboardLayout({ children }) {
           }`}
         >
           <Topbar toggleSidebar={toggleSidebar} />
-          <main className="p-6 mt-16">{children}</main>
+          <main className="p-6">{children}</main>
         </div>
       </div>
     </>
