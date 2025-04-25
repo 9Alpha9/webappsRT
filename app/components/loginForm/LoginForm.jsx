@@ -135,7 +135,7 @@ export default function LoginForm() {
                       type="number"
                       pattern="[0-9]*"
                       inputMode="numeric"
-                      maxLength={16}
+                      // maxLength={16}
                       required
                       className="bg-slate-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none mt-2.5 block w-full px-3 py-2 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400 text-slate-300"
                       value={formData.nik}

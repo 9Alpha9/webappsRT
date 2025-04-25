@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   ChevronUpIcon,
   ChevronDownIcon,
@@ -9,6 +9,7 @@ import {
   InformationCircleIcon,
   XMarkIcon,
   CheckCircleIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { UserGroupIcon } from "@heroicons/react/24/solid";
 
@@ -18,6 +19,8 @@ const UserData = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: "ascending",
@@ -43,21 +46,80 @@ const UserData = () => {
       nama: "John Doe",
       nik: "1234567890123456",
       alamat: "Jl. Contoh No. 123",
-      blokRumah: "AI 01",
+      telepon: "081234567890",
+      dasaWisma: "Dasa Wisma 1",
     },
     {
       id: 2,
       nama: "Jane Smith",
       nik: "6543210987654321",
       alamat: "Jl. Sample No. 456",
-      blokRumah: "AI 02",
+      telepon: "087654321098",
+      dasaWisma: "Dasa Wisma 2",
     },
     {
       id: 3,
-      nama: "Brim",
-      nik: "98766423681263867",
-      alamat: "Jl. Sample No. 234",
-      blokRumah: "AI 03",
+      nama: "Alice Johnson",
+      nik: "9876543210987654",
+      alamat: "Jl. Test No. 789",
+      telepon: "089876543210",
+      dasaWisma: "Dasa Wisma 3",
+    },
+    {
+      id: 4,
+      nama: "Bob Wilson",
+      nik: "4567890123456789",
+      alamat: "Jl. Demo No. 321",
+      telepon: "082345678901",
+      dasaWisma: "Dasa Wisma 3",
+    },
+    {
+      id: 5,
+      nama: "Carol Brown",
+      nik: "7890123456789012",
+      alamat: "Jl. Sample No. 654",
+      telepon: "085678901234",
+      dasaWisma: "Dasa Wisma 1",
+    },
+    {
+      id: 6,
+      nama: "David Lee",
+      nik: "2345678901234567",
+      alamat: "Jl. Test No. 987",
+      telepon: "088901234567",
+      dasaWisma: "Dasa Wisma 3",
+    },
+    {
+      id: 7,
+      nama: "Eve Taylor",
+      nik: "5678901234567890",
+      alamat: "Jl. Demo No. 147",
+      telepon: "083456789012",
+      dasaWisma: "Dasa Wisma 2",
+    },
+    {
+      id: 8,
+      nama: "Frank Miller",
+      nik: "8901234567890123",
+      alamat: "Jl. Sample No. 258",
+      telepon: "086789012345",
+      dasaWisma: "Dasa Wisma 1",
+    },
+    {
+      id: 9,
+      nama: "Grace White",
+      nik: "3456789012345678",
+      alamat: "Jl. Test No. 369",
+      telepon: "081234567890",
+      dasaWisma: "Dasa Wisma 2",
+    },
+    {
+      id: 10,
+      nama: "Henry Clark",
+      nik: "6789012345678901",
+      alamat: "Jl. Demo No. 741",
+      telepon: "084567890123",
+      dasaWisma: "Dasa Wisma 3",
     },
     // Tambahkan data lainnya sesuai kebutuhan
   ]);
@@ -79,7 +141,8 @@ const UserData = () => {
         item.nama.toLowerCase().includes(searchLower) ||
         item.nik.toLowerCase().includes(searchLower) ||
         item.alamat.toLowerCase().includes(searchLower) ||
-        item.blokRumah.toLowerCase().includes(searchLower)
+        item.telepon.toLowerCase().includes(searchLower) ||
+        item.dasaWisma.toLowerCase().includes(searchLower)
       );
     });
 
@@ -98,6 +161,21 @@ const UserData = () => {
 
     return filteredData;
   }, [data, searchQuery, sortConfig]);
+
+  // Hitung total halaman
+  const totalPages = Math.ceil(filteredAndSortedData.length / entriesPerPage);
+
+  // Dapatkan data untuk halaman saat ini
+  const paginatedData = useMemo(() => {
+    const startIndex = (currentPage - 1) * entriesPerPage;
+    const endIndex = startIndex + entriesPerPage;
+    return filteredAndSortedData.slice(startIndex, endIndex);
+  }, [filteredAndSortedData, currentPage, entriesPerPage]);
+
+  // Reset halaman saat mengubah entries per page atau search query
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [entriesPerPage, searchQuery]);
 
   const getSortIcon = (key) => {
     if (sortConfig.key !== key) {
@@ -130,7 +208,7 @@ const UserData = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.7, delay: 0.8, ease: "easeInOut" }}
-              className="text-sm py-2 text-gray-500"
+              className="mt-2 md:text-xs lg:text-md text-xs text-gray-500 font-light md:max-w-md"
             >
               Silakan cari data warga berdasarkan nama, Nik/Ktp, Alamat rumah,
               atau Blok rumah.
@@ -147,7 +225,7 @@ const UserData = () => {
             >
               <div className="flex items-center gap-3">
                 <InformationCircleIcon className="h-6 w-6 text-blue-500" />
-                <h3 className="text-md font-regular text-blue-800">
+                <h3 className="text-xs font-semibold text-blue-800 whitespace-nowrap">
                   Informasi penting
                 </h3>
               </div>
@@ -229,61 +307,83 @@ const UserData = () => {
           </div>
         </div>
         <div className="mt-4">
-          {/* Search Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 1, delay: 1, ease: "easeInOut" }}
-            className="mb-4"
-          >
-            <input
-              type="text"
-              placeholder="Cari data warga..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full md:w-1/3 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </motion.div>
+          {/* Search and Entries Container */}
+          <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            {/* Search Bar */}
+            <div className="w-full sm:w-1/3 relative overflow-hidden rounded-lg">
+              <input
+                type="text"
+                placeholder="Cari data warga..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-14 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <div className="absolute left-0 top-0 h-full flex items-center justify-center bg-dashboard-primary-color p-3">
+                <MagnifyingGlassIcon className="h-5 w-5 text-white" />
+              </div>
+            </div>
 
+            {/* Entries Per Page */}
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-600">Tampilkan</span>
+              <select
+                value={entriesPerPage}
+                onChange={(e) => {
+                  setEntriesPerPage(Number(e.target.value));
+                }}
+                className="px-2 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {[10, 25, 50, 100].map((value) => (
+                  <option key={value} value={value}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+              <span className="text-sm text-gray-600">entries</span>
+            </div>
+          </div>
           {/* Responsive Table Container */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 1, delay: 1.4, ease: "easeInOut" }}
-            className="overflow-x-auto bg-white rounded-lg shadow"
-          >
+          <div className="overflow-x-auto bg-white rounded-lg shadow">
             <div className="inline-block min-w-full align-middle">
               <div className="overflow-hidden">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      {["nama", "nik/ktp", "alamat", "Blok Rumah"].map(
-                        (header) => (
-                          <th
-                            key={header}
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 whitespace-nowrap"
-                            onClick={() => requestSort(header)}
-                          >
-                            <div className="flex items-center space-x-1">
-                              <span>
-                                {header.charAt(0).toUpperCase() +
-                                  header.slice(1)}
-                              </span>
-                              {getSortIcon(header)}
-                            </div>
-                          </th>
-                        )
-                      )}
+                      {[
+                        "No",
+                        "nama",
+                        "nik/ktp",
+                        "alamat",
+                        "telepon",
+                        "Dasa Wisma",
+                      ].map((header) => (
+                        <th
+                          key={header}
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 whitespace-nowrap"
+                          onClick={() => requestSort(header)}
+                        >
+                          <div className="flex items-center space-x-1">
+                            <span>
+                              {header.charAt(0).toUpperCase() + header.slice(1)}
+                            </span>
+                            {getSortIcon(header)}
+                          </div>
+                        </th>
+                      ))}
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
                         Aksi
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {filteredAndSortedData.map((item) => (
-                      <tr key={item.id} className="hover:bg-gray-50">
+                    {paginatedData.map((item) => (
+                      <tr
+                        key={item.id}
+                        className="hover:bg-black/5 transition-all duration-700 ease-in-out"
+                      >
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {item.id}.
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {item.nama}
                         </td>
@@ -296,7 +396,10 @@ const UserData = () => {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {item.blokRumah}
+                          {item.telepon}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {item.dasaWisma}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           <div className="flex items-center space-x-2">
@@ -330,87 +433,64 @@ const UserData = () => {
                 </table>
               </div>
             </div>
-          </motion.div>
-
-          {/* Mobile View (Card Layout) */}
-          {/* <div className="md:hidden mt-4">
-            {filteredAndSortedData.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-lg shadow mb-4 p-4"
-              >
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-gray-500">
-                      Nama
-                    </span>
-                    <span className="text-sm text-gray-900">{item.nama}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-gray-500">
-                      NIK
-                    </span>
-                    <span className="text-sm text-gray-900">{item.nik}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-gray-500">
-                      Alamat
-                    </span>
-                    <span className="text-sm text-gray-900">{item.alamat}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium text-gray-500">
-                      Telepon
-                    </span>
-                    <span className="text-sm text-gray-900">
-                      {item.telepon}
-                    </span>
-                  </div>
-                  <div className="pt-2">
-                    <button
-                      onClick={() => setShowModal(true)}
-                      className="w-full text-blue-600 hover:text-blue-900 font-medium text-sm"
-                    >
-                      Edit
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div> */}
+          </div>
 
           {/* Pagination */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 1, delay: 2, ease: "easeInOut" }}
-            className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4"
-          >
+          <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center">
               <span className="text-sm text-gray-700">
-                Menampilkan {filteredAndSortedData.length} dari {data.length}{" "}
-                data
+                Menampilkan{" "}
+                {filteredAndSortedData.length > 0
+                  ? (currentPage - 1) * entriesPerPage + 1
+                  : 0}{" "}
+                sampai{" "}
+                {Math.min(
+                  currentPage * entriesPerPage,
+                  filteredAndSortedData.length
+                )}{" "}
+                dari {filteredAndSortedData.length} data
               </span>
             </div>
             <div className="flex items-center space-x-2">
-              <button className="px-3 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 md:text-sm text-xs cursor-pointer">
-                Prev
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1 || totalPages === 0}
+                className={`px-3 py-1 rounded-md  ${
+                  currentPage === 1 || totalPages === 0
+                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-md cursor-pointer"
+                } text-sm`}
+              >
+                Sebelumnya
               </button>
-              <button className="px-3 py-1 rounded-md bg-blue-600 text-white hover:bg-blue-700 md:text-sm text-xs cursor-pointer">
-                1
-              </button>
-              <button className="px-3 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 md:text-sm text-xs cursor-pointer">
-                2
-              </button>
-              <button className="px-3 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 md:text-sm text-xs cursor-pointer">
-                3
-              </button>
-              <button className="px-3 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 md:text-sm text-xs cursor-pointer">
-                Next
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => setCurrentPage(index + 1)}
+                  className={`px-3 py-1 rounded-md ${
+                    currentPage === index + 1
+                      ? "bg-dashboard-button-primary text-white"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  } text-sm cursor-pointer`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+              <button
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={currentPage === totalPages || totalPages === 0}
+                className={`px-3 py-1 rounded-md ${
+                  currentPage === totalPages || totalPages === 0
+                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-md cursor-pointer"
+                } text-sm`}
+              >
+                Selanjutnya
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

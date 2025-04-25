@@ -7,6 +7,9 @@ html {
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --dashboard-secondary: #185b48;
+  --dashboard-primary-color: #246c5a;
+  --dashboard-primary-text: #0f392d;
   --dashboard-sidebar: #262063;
   --dashboard-sidebar-active: #185b48;
   --dashboard-sidebar-hover: #0e5b46;
@@ -19,6 +22,12 @@ html {
   --dashboard-button-primary: #0f392d;
   --dashboard-button-hover: #0e5b46;
   --dashboard-primary: #0f2d49;
+  --ring-dashboard-button-primary: #0f392d;
+  --ring-dashboard-button-hover: #0e5b46;
+  --ring-dashboard-button-text: #ffffff;
+  --ring-dashboard-button-text-hover: #ffffff;
+  --bg-icon-color: #053529;
+  --text-icon-color: #3ceddb;
 }
 
 @theme inline {
@@ -39,6 +48,10 @@ body {
   /* background: var(--background); */
   color: var(--foreground);
   font-family: Arial, Helvetica, Inter, sans-serif;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 @theme {
@@ -53,4 +66,14 @@ body {
   --color-dashboard-button-primary: var(--dashboard-button-primary);
   --color-dashboard-button-hover: var(--dashboard-button-hover);
   --color-dashboard-primary: var(--dashboard-primary);
+  --color-ring-dashboard-button-primary: var(--ring-dashboard-button-primary);
+  --color-ring-dashboard-button-hover: var(--ring-dashboard-button-hover);
+  --color-ring-dashboard-button-text: var(--ring-dashboard-button-text);
+  --color-ring-dashboard-button-text-hover: var(
+    --ring-dashboard-button-text-hover
+  );
+  --color-dashboard-primary-color: var(--dashboard-primary-color);
+  --color-dashboard-secondary: var(--dashboard-secondary);
+  --color-bg-icon-color: var(--bg-icon-color);
+  --color-text-icon-color: var(--text-icon-color);
 }

@@ -33,32 +33,32 @@ export default function DashboardPage() {
           return (
             <div
               key={stat.name}
-              className="p-6 bg-dashboard-primary rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              className="p-6 bg-dashboard-secondary rounded-lg shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-100">
                     {stat.name}
                   </p>
-                  <p className="mt-2 text-3xl font-semibold text-stone-50">
+                  <p className="mt-2 text-3xl font-semibold text-stone-100">
                     {stat.value}
                   </p>
                 </div>
-                <div className="p-3 bg-blue-200 rounded-full">
-                  <Icon className="w-6 h-6 text-blue-600" />
+                <div className="p-3 bg-bg-icon-color rounded-full">
+                  <Icon className="w-6 h-6 text-text-icon-color" />
                 </div>
               </div>
               <div className="mt-4">
                 <span
                   className={`text-sm font-medium ${
                     stat.change.startsWith("+")
-                      ? "text-green-600"
-                      : "text-red-600"
+                      ? "text-green-300"
+                      : "text-red-300"
                   }`}
                 >
                   {stat.change}
                 </span>
-                <span className="text-sm text-gray-500 ml-2">
+                <span className="text-sm text-stone-100 ml-2">
                   dari bulan lalu
                 </span>
               </div>

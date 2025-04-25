@@ -11,7 +11,13 @@ import {
   ChevronRightIcon,
   ChevronDownIcon,
   CalendarIcon,
+  HomeModernIcon,
 } from "@heroicons/react/24/outline";
+
+import {
+  ArrowRightEndOnRectangleIcon,
+  ArrowLeftIcon,
+} from "@heroicons/react/24/solid";
 import styles from "./styles.module.scss";
 const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
   const pathname = usePathname();

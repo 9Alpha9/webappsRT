@@ -19,6 +19,8 @@ $footer-scale-bottom: 60%;
 .footerContainer {
     background-color: $footer-background;
     color: $footer-text-color;
+    position: relative;
+    bottom: 0;
 
     .footerWrapper {
         max-width: $footer-desktop-max;

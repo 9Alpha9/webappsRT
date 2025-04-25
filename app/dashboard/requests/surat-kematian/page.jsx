@@ -1,13 +1,18 @@
 "use client";
 import { useState } from "react";
 import React from "react";
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
-import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import {
+  UsersIcon,
+  CheckBadgeIcon as CheckBadgeIconSolid,
+  PencilIcon as PencilIconSolid,
+  UserIcon as UserIconSolid,
+} from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 import {
   InformationCircleIcon,
   CheckCircleIcon,
   XMarkIcon,
+  ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { AnimatePresence } from "framer-motion";
 const SuratKematian = () => {
@@ -27,6 +32,7 @@ const SuratKematian = () => {
     sebabAkibatKematian: "",
     pekerjaanTerakhir: "",
     kewarganegaraan: "",
+    alamat: "",
   });
 
   const handleInputChange = (e) => {
@@ -51,13 +57,14 @@ const SuratKematian = () => {
     <>
       <title>Pengajuan Surat Kematian</title>
       <div className="bg-gray-100 p-5 rounded-lg">
-        <div className="flex items-center justify-between border-b border-gray-900/10 pb-4 md:flex-row flex-col">
+        <div className="flex flex-col lg:flex-row items-center justify-between border-b border-gray-900/10 pb-4">
           <span className="block py-4 ">
             <h2 className="text-base/7 md:text-3xl font-semibold text-gray-900">
               Pengajuan Surat Kematian
             </h2>
-            <p className="mt-1 text-md text-gray-500 font-light">
-              Silakan isi data almarhum/almarhumah dengan lengkap dan benar.
+            <p className="mt-2 md:text-xs lg:text-md text-xs text-gray-500 font-light md:max-w-md">
+              Silakan isi formulir pengajuan surat kematian dengan data lengkap
+              dan benar.
             </p>
           </span>
           <div className="informationDialogue">
@@ -65,16 +72,16 @@ const SuratKematian = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6 cursor-pointer"
+              className="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-6 cursor-pointer hover:bg-blue-100 transition-all duration-300 ease-in-out"
               onClick={() => setShowDialog(true)}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex  items-center gap-3">
                 <InformationCircleIcon className="h-6 w-6 text-blue-500" />
                 <h3 className="text-xs md:text-md font-semibold text-blue-800">
-                  Alur Penyerahan Surat Kematian
+                  Informasi Penting
                 </h3>
               </div>
-              <p className="mt-2 text-xs md:text-sm text-blue-600 md:text-end hidden md:block">
+              <p className="mt-2 text-xs text-blue-600  md:hidden lg:hidden xl:block">
                 Klik untuk melihat informasi lengkap.
               </p>
             </motion.div>
@@ -86,7 +93,7 @@ const SuratKematian = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2, ease: "easeInOut" }}
-                  className="rounded-md fixed inset-0 bg-black/70 flex items-center justify-center z-50 h-screen"
+                  className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 h-screen"
                   // onClick={() => setShowDialog(false)}
                 >
                   <motion.div
@@ -111,11 +118,13 @@ const SuratKematian = () => {
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
                         <div className="bg-blue-100 rounded-full p-2">
-                          <CheckCircleIcon className="h-5 w-5 text-blue-600" />
+                          <PencilIconSolid className="h-5 w-5 text-blue-600" />
                         </div>
                         <div>
-                          <h3 className="font-medium">1. Pengisian Formulir</h3>
-                          <p className="text-sm text-gray-600 my-2">
+                          <h3 className="font-medium text-xs md:text-sm">
+                            1. Pengisian Formulir
+                          </h3>
+                          <p className="text-xs md:text-sm text-gray-600 my-2">
                             Isi formulir pengajuan surat kematian dengan data
                             lengkap dan benar. Harap diperhatikan jika terdapat
                             data yang salah, maka surat pengajuan kematian akan
@@ -127,11 +136,13 @@ const SuratKematian = () => {
 
                       <div className="flex items-start gap-3">
                         <div className="bg-blue-100 rounded-full p-2">
-                          <CheckCircleIcon className="h-5 w-5 text-blue-600" />
+                          <CheckBadgeIconSolid className="h-5 w-5 text-blue-600" />
                         </div>
                         <div>
-                          <h3 className="font-medium">2. Verifikasi Data</h3>
-                          <p className="text-sm text-gray-600 my-2">
+                          <h3 className="font-medium text-xs md:text-sm">
+                            2. Verifikasi Data
+                          </h3>
+                          <p className="text-xs md:text-sm text-gray-600 my-2">
                             Sistem akan secara otomatis memverifikasi data yang
                             telah diisi, jika ada data yang salah, maka surat
                             pengajuan kematian akan mengalami penundaan
@@ -140,12 +151,14 @@ const SuratKematian = () => {
                         </div>
                       </div>
                       <div className="flex items-start gap-3">
-                        <div className="bg-blue-100 rounded-full p-2">
-                          <CheckCircleIcon className="h-5 w-5 text-blue-600" />
+                        <div className="bg-green-100 rounded-full p-2">
+                          <UserIconSolid className="h-5 w-5 text-green-600" />
                         </div>
                         <div>
-                          <h3 className="font-medium">3. Pengambilan Surat</h3>
-                          <p className="text-sm text-gray-600 my-2">
+                          <h3 className="font-medium text-xs md:text-sm">
+                            3. Pengambilan Surat
+                          </h3>
+                          <p className="text-xs md:text-sm text-gray-600 my-2">
                             Surat pengajuan kematian dapat diambil atau
                             diserahkan secara langsung oleh Ketua RT 50 kepada
                             yang bersangkutan, setelah data yang di isi oleh
@@ -182,7 +195,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="hari"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Hari
                   </label>
@@ -202,7 +215,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="jamKematian"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Jam Kematian Almarhum/Almarhumah
                   </label>
@@ -222,7 +235,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="tanggalKematian"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Tanggal
                   </label>
@@ -242,7 +255,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="lokasiKematian"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Lokasi Kematian Almarhum/Almarhumah
                   </label>
@@ -272,7 +285,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="namaLengkap"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Nama Lengkap
                   </label>
@@ -292,7 +305,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="alias"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Alias
                   </label>
@@ -312,7 +325,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="binBinti"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Bin / Binti
                   </label>
@@ -332,40 +345,41 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="jenisKelamin"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Jenis Kelamin
                   </label>
-                  <div className="mt-2">
+                  <div className="mt-2 relative">
                     <select
                       id="jenisKelamin"
                       name="jenisKelamin"
                       value={formData.jenisKelamin}
                       onChange={handleInputChange}
                       required
-                      className="w-full rounded-md bg-white px-3 py-[8.8px] text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="w-full rounded-md bg-white px-3 py-[8.8px] text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
                     >
                       <option value="">Pilih Jenis Kelamin</option>
                       <option value="Laki-laki">Laki-laki</option>
                       <option value="Perempuan">Perempuan</option>
                     </select>
+                    <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-black" />
                   </div>
                 </div>
                 <div className="col-span-1">
                   <label
                     htmlFor="agama"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Agama
                   </label>
-                  <div className="mt-2">
+                  <div className="mt-2 relative">
                     <select
                       id="agama"
                       name="agama"
                       value={formData.agama}
                       onChange={handleInputChange}
                       required
-                      className="w-full rounded-md bg-white px-3 py-[8.8px] text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="w-full rounded-md bg-white px-3 py-[8.8px] text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
                     >
                       <option value="">Pilih Agama</option>
                       <option value="Islam">Islam</option>
@@ -375,12 +389,13 @@ const SuratKematian = () => {
                       <option value="Buddha">Buddha</option>
                       <option value="Konghucu">Konghucu</option>
                     </select>
+                    <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-black" />
                   </div>
                 </div>
                 <div className="col-span-1">
                   <label
                     htmlFor="tanggalLahir"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Tanggal / Bulan / Tahun Lahir
                   </label>
@@ -399,7 +414,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="tempatLahir"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Tempat Lahir
                   </label>
@@ -419,7 +434,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="usia"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Usia
                   </label>
@@ -439,29 +454,30 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="kewarganegaraan"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Kewarganegaraan
                   </label>
-                  <div className="mt-2">
+                  <div className="mt-2 relative">
                     <select
                       id="kewarganegaraan"
                       name="kewarganegaraan"
                       value={formData.kewarganegaraan}
                       onChange={handleInputChange}
                       required
-                      className="w-full rounded-md bg-white px-3 py-[8.8px] text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="w-full rounded-md bg-white px-3 py-[8.8px] text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
                     >
                       <option value="">Pilih Kewarganegaraan</option>
                       <option value="Indonesia">Indonesia</option>
                       <option value="Asing">Asing</option>
                     </select>
+                    <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-black" />
                   </div>
                 </div>
                 <div className="col-span-1">
                   <label
                     htmlFor="sebabAkibatKematian"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Sebab / Akibat Kematian
                   </label>
@@ -481,18 +497,18 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="pekerjaanTerakhir"
-                    className="block text-sm/6 font-medium text-gray-900"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     Pekerjaan Terakhir
                   </label>
-                  <div className="mt-2">
+                  <div className="mt-2 relative">
                     <select
                       id="pekerjaanTerakhir"
                       name="pekerjaanTerakhir"
                       value={formData.pekerjaanTerakhir}
                       onChange={handleInputChange}
                       required
-                      className="w-full font- rounded-md bg-white px-3 py-[8.8px] text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="w-full font-medium rounded-md bg-white px-3 py-[8.8px] text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
                     >
                       <option value="">Pilih Pekerjaan Terakhir</option>
                       <option value="PNS">PNS</option>
@@ -501,6 +517,27 @@ const SuratKematian = () => {
                       <option value="PENSIUNAN">PENSIUNAN</option>
                       <option value="LAINNYA">LAINNYA</option>
                     </select>
+                    <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-black" />
+                  </div>
+                </div>
+                <div className="col-span-1 md:col-span-2">
+                  <label
+                    htmlFor="alamat"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
+                  >
+                    Alamat
+                  </label>
+                  <div className="mt-2">
+                    <textarea
+                      id="alamat"
+                      name="alamat"
+                      type="text"
+                      value={formData.alamat}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Masukkan Alamat"
+                      className=" w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 resize-none h-32 md:h-24 overflow-y-auto"
+                    />
                   </div>
                 </div>
               </div>
@@ -517,7 +554,7 @@ const SuratKematian = () => {
               type="submit"
               className="rounded-md cursor-pointer bg-dashboard-button-primary px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-dashboard-button-hover transition-all duration-300 ease-in-out"
             >
-              Ajukan Surat Pengajuan Kematian
+              Ajukan Surat
             </button>
           </div>
         </form>

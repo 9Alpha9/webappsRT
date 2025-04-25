@@ -20,8 +20,10 @@ const Topbar = ({ toggleSidebar }) => {
             <Bars3Icon className="w-6 h-6" />
           </button>
           <div className="items-center gap-4 flex align-middle">
-            <h1 className="ml-4 text-xl font-semibold">Dashboard</h1>
-            <div className="flex flex-col">
+            <h1 className="text-xl font-semibold text-dashboard-primary">
+              Dashboard
+            </h1>
+            <div className="flex-col hidden md:block">
               <span className="text-xs text-stone-500 block">
                 Build Version
               </span>
@@ -31,7 +33,7 @@ const Topbar = ({ toggleSidebar }) => {
         </div>
 
         <div className="flex items-center space-x-4">
-          <button className="relative p-2 rounded-lg hover:bg-dashboard-topbar-hover hover:text-white transition-all duration-300 ease-in-out cursor-pointer">
+          <button className="relative p-2 rounded-lg hover:bg-dashboard-primary-color hover:text-white transition-all duration-300 ease-in-out cursor-pointer">
             <BellIcon className="w-6 h-6" />
             <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
           </button>
@@ -39,7 +41,7 @@ const Topbar = ({ toggleSidebar }) => {
           <div className="relative">
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center space-x-2 p-2 rounded-lg hover:bg-dashboard-topbar-hover hover:text-white  cursor-pointer transition-all duration-300 ease-in-out"
+              className="flex items-center space-x-2 p-2 rounded-lg hover:bg-dashboard-primary-color hover:text-white  cursor-pointer transition-all duration-300 ease-in-out"
             >
               <UserCircleIcon className="w-6 h-6" />
             </button>
