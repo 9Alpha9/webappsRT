@@ -1,0 +1,114 @@
+$container-width: 2200px;
+$basis-color: #3b3b3b;
+$basis-color-title: #242424;
+$default-margin: 2rem 0;
+$basis-font-size-xs: 1rem;
+$basis-font-size-xxs: .9rem;
+$basis-font-size-sm: 1.4rem;
+$basis-font-size-md: 2rem;
+$basis-font-size-lg: 2.5rem;
+$basis-font-size-list: .9rem;
+
+.container {
+    color: $basis-color;
+    max-width: $container-width;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+        padding: 1.2rem 1rem 0;
+    }
+
+    @media (min-width: 1024px) {
+        padding: 1.2rem 5rem 0;
+    }
+
+    .contentTitle {
+        font-size: $basis-font-size-md;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 1rem;
+        color: $basis-color-title;
+
+        @media (max-width: 768px) {
+            font-size: $basis-font-size-sm;
+        }
+
+        @media (min-width: 768px) {
+            font-size: $basis-font-size-md;
+        }
+    }
+}
+
+.content {
+    margin: $default-margin;
+    padding: 2rem 0;
+
+    .contentIntroPrivacy {
+        font-weight: 500;
+        margin-bottom: 1rem;
+        display: block;
+
+        @media (max-width: 768px) {
+            font-size: $basis-font-size-xxs;
+            line-height: 1.7;
+        }
+
+        .contentIntroTermsAndconditionList {
+            display: block;
+            margin-top: 1rem;
+
+            @media (max-width: 768px) {
+                margin-top: 1.2rem;
+                margin-bottom: 1.2rem;
+                font-size: $basis-font-size-xxs;
+                line-height: 1.7;
+            }
+        }
+    }
+
+    .contentItem {
+        margin-bottom: 2rem;
+
+        .contentItemTitle {
+            font-size: $basis-font-size-xs;
+            font-weight: 700;
+            margin-bottom: .7rem;
+        }
+
+        .contentItemContent {
+            @media (max-width: 768px) {
+                line-height: 1.4;
+                font-size: $basis-font-size-xxs;
+            }
+
+
+        }
+
+        .listItems {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+
+            @media (max-width: 768px) {
+                font-size: $basis-font-size-list;
+            }
+
+            .contentItemList {
+                margin-left: 1.8rem;
+                gap: 0.5rem;
+                list-style-type: disc;
+
+            }
+
+            .contentItemSection {
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                line-height: 1.5;
+
+                @media (max-width: 768px) {
+                    font-size: $basis-font-size-xxs
+                }
+            }
+        }
+    }
+}

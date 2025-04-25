@@ -130,7 +130,7 @@ export default function FooterComp() {
                   <span className={styles.footerBottomCta}>
                     <Link
                       className={styles.footerBottomLinks}
-                      href="/terms-and-conditions"
+                      href="/page/terms-and-conditions"
                     >
                       Terms & Condition
                     </Link>
