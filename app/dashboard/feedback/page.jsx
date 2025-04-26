@@ -73,7 +73,6 @@ function ContactForm() {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold text-center mb-8">Form Feedback</h1>
-
       {/* Alert Notification */}
       {showAlert && (
         <div className="mb-4 animate-fade-in-down">
