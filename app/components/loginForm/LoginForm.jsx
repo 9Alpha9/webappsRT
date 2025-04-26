@@ -36,7 +36,6 @@ export default function LoginForm() {
 
     if (!recaptchaValue) {
       setShowAlert(true);
-      // Sembunyikan alert setelah 8 detik
       setTimeout(() => {
         setShowAlert(false);
       }, 8000);
@@ -46,7 +45,6 @@ export default function LoginForm() {
     try {
       const response = await axios.post("/api/auth/login", formData);
       console.log("Login berhasil:", response.data);
-      // Di sini Anda bisa menambahkan logika redirect setelah login berhasil
     } catch (err) {
       setError(
         err.response?.data?.message || "Terjadi kesalahan. Silakan coba lagi."
