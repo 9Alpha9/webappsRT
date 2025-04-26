@@ -3,7 +3,7 @@ import { useState } from "react";
 import Sidebar from "./components/sideBar/SideBar";
 import Topbar from "./components/topBar/Topbar";
 import { MetaData } from "./components/meta/DbMetaData";
-
+import GoogleAnalytics from "../GoogleAnalytics";
 export default function DashboardLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -36,7 +36,10 @@ export default function DashboardLayout({ children }) {
           }`}
         >
           <Topbar toggleSidebar={toggleSidebar} />
-          <main className="p-6">{children}</main>
+          <main className="p-6">
+            <GoogleAnalytics />
+            {children}
+          </main>
         </div>
       </div>
     </>

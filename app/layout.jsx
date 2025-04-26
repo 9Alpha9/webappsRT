@@ -6,6 +6,7 @@ import NavbarComp from "./components/navbarComp/navbar";
 import { usePathname } from "next/navigation";
 import { MetaData } from "./metada";
 const inter = Inter({ subsets: ["latin"] });
+import GoogleAnalytics from "./GoogleAnalytics";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
       />
       <body className={inter.className}>
         {!isDashboard && !isLogin && !isRegister && <NavbarComp />}
+        <GoogleAnalytics />
         {children}
         {!isDashboard && !isLogin && !isRegister && <FooterComp />}
       </body>
