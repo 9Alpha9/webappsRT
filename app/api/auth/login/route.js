@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   try {
-    const { email, password } = await request.json();
+    const { nik, password } = await request.json();
 
-    if (!email || !password) {
+    if (!nik || !password) {
       return NextResponse.json(
-        { message: "Email dan password harus diisi" },
+        { message: "Nik dan password harus diisi" },
         { status: 400 }
       );
     }
@@ -15,7 +15,7 @@ export async function POST(request) {
     return NextResponse.json({
       message: "Login berhasil",
       user: {
-        email,
+        nik,
         name: "Contoh Pengguna",
       },
     });
