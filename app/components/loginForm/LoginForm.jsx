@@ -1,14 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import Link from "next/link";
 import imagePix from "../../../public/assets/img/plants.jpg";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import "./loginForm.scss";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function LoginForm() {
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  const recaptchaRef = useRef();
   const [image] = useState(imagePix);
   const [formData, setFormData] = useState({
     nik: "",
@@ -16,6 +20,7 @@ export default function LoginForm() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,10 +30,27 @@ export default function LoginForm() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
+    const recaptchaValue = recaptchaRef.current.getValue();
+
+    if (!recaptchaValue) {
+      setShowAlert(true);
+      // Sembunyikan alert setelah 8 detik
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 8000);
+      return;
+    }
+
+    if (!recaptchaValue) {
+      setShowAlert(true);
+      // Sembunyikan alert setelah 8 detik
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 8000);
+      return;
+    }
 
     try {
       const response = await axios.post("/api/auth/login", formData);
@@ -116,11 +138,60 @@ export default function LoginForm() {
             <h2 className="font-extrabold text-stone-200 text-2xl">
               Login Dashboard
             </h2>
+
             <form
-              onSubmit={handleSubmit}
+              onSubmit={onSubmit}
               className="mt-8 sm:w-8/12 w-full p-3 sm:p-8"
             >
               <div className="formWrapper relative space-y-6 bg-slate-900 p-6 rounded-lg shadow-md">
+                {/* Alert Notification */}
+                {showAlert && (
+                  <div className="mb-4 animate-fade-in-down">
+                    <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0">
+                          <svg
+                            className="h-5 w-5 text-red-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-sm font-medium">
+                            Mohon verifikasi reCAPTCHA terlebih dahulu
+                          </p>
+                        </div>
+                        <div className="ml-auto pl-3">
+                          <div className="-mx-1.5 -my-1.5">
+                            <button
+                              onClick={() => setShowAlert(false)}
+                              className="inline-flex rounded-md p-1.5 text-red-500 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 cursor-pointer"
+                            >
+                              <span className="sr-only">Dismiss</span>
+                              <svg
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <div className="sectionNik">
                   <span className="sectionInputItems">
                     <label
@@ -171,6 +242,13 @@ export default function LoginForm() {
                       className="mt-2.5 rounded-md text-slate-300 block w-full px-3 py-2 border border-slate-600 bg-slate-800  shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400"
                     />
                   </span>
+                </div>
+                <div className="flex justify-center mt-14">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={siteKey}
+                    size="normal"
+                  />
                 </div>
                 <div className="mt-16">
                   <button

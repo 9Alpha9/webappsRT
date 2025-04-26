@@ -7,12 +7,27 @@ import { usePathname } from "next/navigation";
 import { MetaData } from "./metada";
 const inter = Inter({ subsets: ["latin"] });
 import GoogleAnalytics from "./GoogleAnalytics";
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { pageview } from "./lib/GoogleTags";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const isDashboard = /^\/dashboard(\/.*)?$/.test(pathname);
   const isLogin = /^\/login(\/.*)?$/.test(pathname);
   const isRegister = /^\/register(\/.*)?$/.test(pathname);
+  const isNotFound = pathname === "/404" || pathname === "/not-found";
+
+  useEffect(() => {
+    if (pathname) {
+      pageview(pathname + searchParams.toString());
+    }
+  }, [pathname, searchParams]);
+
+  if (isNotFound) {
+    return <>{children}</>;
+  }
 
   return (
     <html lang="id">
@@ -26,10 +41,14 @@ export default function RootLayout({ children }) {
         content={MetaData.openGraph.description}
       />
       <body className={inter.className}>
-        {!isDashboard && !isLogin && !isRegister && <NavbarComp />}
+        {!isDashboard && !isLogin && !isRegister && !isNotFound && (
+          <NavbarComp />
+        )}
         <GoogleAnalytics />
         {children}
-        {!isDashboard && !isLogin && !isRegister && <FooterComp />}
+        {!isDashboard && !isLogin && !isRegister && !isNotFound && (
+          <FooterComp />
+        )}
       </body>
     </html>
   );

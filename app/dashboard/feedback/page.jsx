@@ -34,7 +34,7 @@ function ContactForm() {
 
     if (!recaptchaValue) {
       setShowAlert(true);
-      // Sembunyikan alert setelah 5 detik
+      // Sembunyikan alert setelah 8 detik
       setTimeout(() => {
         setShowAlert(false);
       }, 8000);
