@@ -43,15 +43,6 @@ export default function LoginForm() {
       return;
     }
 
-    if (!recaptchaValue) {
-      setShowAlert(true);
-      // Sembunyikan alert setelah 8 detik
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 8000);
-      return;
-    }
-
     try {
       const response = await axios.post("/api/auth/login", formData);
       console.log("Login berhasil:", response.data);
