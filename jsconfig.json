@@ -6,6 +6,12 @@
     },
     "jsx": "preserve"
   },
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "app/api/feedback/route"
+  ],
   "exclude": ["node_modules"]
 }

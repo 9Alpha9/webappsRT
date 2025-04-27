@@ -48,15 +48,15 @@ const SuratKeteranganKurangMampu = () => {
 
   return (
     <>
-      <title>Pengajuan Surat Keterangan Kurang Mampu</title>
+      <title>Pengajuan Surat Keterangan Tidak Mampu</title>
       <div className="bg-gray-100 p-5 rounded-lg">
         <div className="flex items-center justify-between border-b border-gray-900/10 pb-4 md:flex-col lg:flex-row flex-col">
           <span className="block py-4 ">
             <h2 className="text-base/7 md:text-3xl font-semibold text-dashboard-primary">
-              Pengajuan Surat Kurang Mampu
+              Pengajuan Surat Keterangan Tidak Mampu
             </h2>
             <p className="mt-2 md:text-xs lg:text-md text-xs text-gray-500 font-light md:max-w-md">
-              Silakan isi formulir pengajuan surat kurang mampu dengan data
+              Silakan isi formulir pengajuan surat tidak mampu dengan data
               lengkap dan benar.
             </p>
           </span>
@@ -194,7 +194,7 @@ const SuratKeteranganKurangMampu = () => {
                     htmlFor="nomorNIP"
                     className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
-                    Nomor KK/KTP
+                    NIK
                   </label>
                   <div className="mt-2">
                     <input
@@ -340,18 +340,18 @@ const SuratKeteranganKurangMampu = () => {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-3 mt-6"></div>
             </section>
-            <div className="mt-6 flex items-center justify-end gap-x-6">
+            <div className="mt-6 flex items-center justify-start  gap-x-6">
+              <button
+                type="submit"
+                className="rounded-md cursor-pointer bg-dashboard-button-primary px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-dashboard-button-hover transition-all duration-300 ease-in-out"
+              >
+                Ajukan SKTM
+              </button>
               <button
                 type="button"
                 className="text-sm/6 font-semibold text-gray-900 cursor-pointer"
               >
                 Batal
-              </button>
-              <button
-                type="submit"
-                className="rounded-md cursor-pointer bg-dashboard-button-primary px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-dashboard-button-hover transition-all duration-300 ease-in-out"
-              >
-                Ajukan Surat
               </button>
             </div>
           </form>

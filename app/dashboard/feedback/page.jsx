@@ -1,84 +1,95 @@
-// For more help visit https://formspr.ee/react-help
-
-//UNTUK MELIHAT HASIL FEEDBACK KLIK DISINI : https://formspr.ee/xanonojw dan ada di email pendaftar akun @gilangramaddhann@gmail.com
 "use client";
 import React, { useState, useRef } from "react";
-import { useForm, ValidationError } from "@formspree/react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 function ContactForm() {
-  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
-  //   console.log(secretKey);
-  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-  //   console.log(siteKey);
-  const [state, handleSubmit] = useForm("xanonojw");
-  const recaptchaRef = useRef();
+  const [submitting, setSubmitting] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("error");
+  const recaptchaRef = useRef();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const recaptchaValue = recaptchaRef.current.getValue();
 
     if (!recaptchaValue) {
+      setAlertMessage("Mohon verifikasi reCAPTCHA terlebih dahulu");
+      setAlertType("error");
       setShowAlert(true);
-      // Sembunyikan alert setelah 8 detik
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 8000);
+      setTimeout(() => setShowAlert(false), 5000);
       return;
     }
 
-    const formDataWithRecaptcha = {
-      ...formData,
-      "g-recaptcha-response": recaptchaValue,
-    };
+    setSubmitting(true);
+    const form = e.target;
+    const formData = new FormData(form);
+    formData.append("g-recaptcha-response", recaptchaValue);
 
-    await handleSubmit(e);
+    try {
+      const response = await fetch("/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          subject: formData.get("subject"),
+          message: formData.get("message"),
+          "g-recaptcha-response": recaptchaValue,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setAlertMessage("Pesan Anda telah berhasil dikirim!");
+        setAlertType("success");
+        form.reset();
+        recaptchaRef.current.reset();
+      } else {
+        throw new Error(
+          data.message || "Terjadi kesalahan saat mengirim pesan"
+        );
+      }
+    } catch (error) {
+      setAlertMessage(error.message);
+      setAlertType("error");
+    } finally {
+      setSubmitting(false);
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 5000);
+    }
   };
 
-  if (state.succeeded) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh]">
-        <div
-          className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-          role="alert"
-        >
-          <strong className="font-bold">
-            Terima kasih atas partisipasi Anda!
-          </strong>
-          <span className="block sm:inline">
-            {" "}
-            Masukan yang Anda berikan akan menjadi bahan evaluasi dan
-            pengembangan website <strong>lingkunganrt50.com</strong> ke depan.
-            Salam hangat dari Karang Taruna & Pengurus RT 50.
-          </span>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
+    <div className="max-w-2xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-center mb-8">Form Feedback</h1>
-      {/* Alert Notification */}
+
       {showAlert && (
-        <div className="mb-4 animate-fade-in-down">
-          <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
+        <div
+          className={`mb-4 animate-fade-in-down ${
+            alertType === "success"
+              ? "bg-green-100 border-green-500"
+              : "bg-red-100 border-red-500"
+          } border-l-4 p-4 rounded-md shadow-md`}
+        >
+          <div className="flex items-center">
+            <div className="flex-shrink-0">
+              {alertType === "success" ? (
+                <svg
+                  className="h-5 w-5 text-green-500"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
                 <svg
                   className="h-5 w-5 text-red-500"
                   viewBox="0 0 20 20"
@@ -90,33 +101,29 @@ function ContactForm() {
                     clipRule="evenodd"
                   />
                 </svg>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium">
-                  Mohon verifikasi reCAPTCHA terlebih dahulu
-                </p>
-              </div>
-              <div className="ml-auto pl-3">
-                <div className="-mx-1.5 -my-1.5">
-                  <button
-                    onClick={() => setShowAlert(false)}
-                    className="inline-flex rounded-md p-1.5 text-red-500 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 cursor-pointer"
-                  >
-                    <span className="sr-only">Dismiss</span>
-                    <svg
-                      className="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+              )}
+            </div>
+            <div className="ml-3">
+              <p className="text-sm font-medium">{alertMessage}</p>
+            </div>
+            <div className="ml-auto pl-3">
+              <button
+                onClick={() => setShowAlert(false)}
+                className="inline-flex rounded-md p-1.5 hover:bg-gray-200 focus:outline-none"
+              >
+                <span className="sr-only">Dismiss</span>
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -126,7 +133,7 @@ function ContactForm() {
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-gray-700 mb-1 after:text-red-500 after:content-['*'] after:ml-0.5"
+            className="block text-sm font-medium text-gray-700 mb-1"
           >
             Nama Lengkap
           </label>
@@ -134,9 +141,7 @@ function ContactForm() {
             id="name"
             type="text"
             name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white "
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
@@ -144,7 +149,7 @@ function ContactForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-1 after:text-red-500 after:content-['*'] after:ml-0.5"
+            className="block text-sm font-medium text-gray-700 mb-1"
           >
             Email
           </label>
@@ -152,18 +157,15 @@ function ContactForm() {
             id="email"
             type="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
-          <ValidationError prefix="Email" field="email" errors={state.errors} />
         </div>
 
         <div>
           <label
             htmlFor="subject"
-            className="block text-sm font-medium text-gray-700 mb-1 after:text-red-500 after:content-['*'] after:ml-0.5"
+            className="block text-sm font-medium text-gray-700 mb-1"
           >
             Subjek
           </label>
@@ -171,9 +173,7 @@ function ContactForm() {
             id="subject"
             type="text"
             name="subject"
-            value={formData.subject}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
@@ -181,37 +181,34 @@ function ContactForm() {
         <div>
           <label
             htmlFor="message"
-            className="block text-sm font-medium text-gray-700 mb-1 after:text-red-500 after:content-['*'] after:ml-0.5"
+            className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Pesan / Kesan
+            Pesan
           </label>
           <textarea
             id="message"
             name="message"
-            value={formData.message}
-            onChange={handleChange}
             rows="4"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
-          />
-          <ValidationError
-            prefix="Message"
-            field="message"
-            errors={state.errors}
           />
         </div>
 
         <div className="flex justify-center">
-          <ReCAPTCHA ref={recaptchaRef} sitekey={siteKey} size="normal" />
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+            size="normal"
+          />
         </div>
 
         <div>
           <button
             type="submit"
-            disabled={state.submitting}
-            className="w-full bg-dashboard-button-primary text-white py-2 px-4 rounded-md hover:bg-dashboard-button-hover focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer animate-fade-in-down transition-all duration-300 ease-in-out"
+            disabled={submitting}
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {state.submitting ? "Mengirim..." : "Kirim Pesan"}
+            {submitting ? "Mengirim..." : "Kirim Pesan"}
           </button>
         </div>
       </form>

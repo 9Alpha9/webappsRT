@@ -20,9 +20,9 @@ const SuratKematian = () => {
 
   const [formData, setFormData] = useState({
     namaLengkap: "",
-    alias: "",
     binBinti: "",
     tanggalLahir: "",
+    nomorTelp: "",
     tempatLahir: "",
     agama: "",
     jenisKelamin: "",
@@ -272,6 +272,47 @@ const SuratKematian = () => {
                     />
                   </div>
                 </div>
+                <div className="col-span-1 mt-6">
+                  <span className="block font-bold text-gray-900 py-4 border-gray-900/10">
+                    <h2>Nomor Telepon</h2>
+                    <p className="text-sm/6 text-gray-400 font-light">
+                      Silakan isi nomor telepon kerabat terdekat
+                      almarhum/almarhumah.
+                    </p>
+                  </span>
+                  <div className="col-span-1">
+                    <label
+                      htmlFor="nomorTelp"
+                      className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
+                    >
+                      Nomor Telepon
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id="nomorTelp"
+                        name="nomorTelp"
+                        type="number"
+                        pattern="[0-9]*"
+                        inputMode="numeric"
+                        required
+                        aria-required="true"
+                        placeholder="Masukkan Nomor Telepon"
+                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        value={formData.nomorTelp}
+                        onChange={(e) => {
+                          if (e.target.value.length <= 12) {
+                            handleInputChange(e);
+                          }
+                        }}
+                        onKeyPress={(e) => {
+                          if (!/[0-9]/.test(e.key)) {
+                            e.preventDefault();
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
             <section className="my-6 mt-18 sectionDataDiri">
@@ -298,26 +339,6 @@ const SuratKematian = () => {
                       onChange={handleInputChange}
                       placeholder="Masukkan nama lengkap almarhum/almarhumah"
                       required
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
-                <div className="col-span-1">
-                  <label
-                    htmlFor="alias"
-                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
-                  >
-                    Alias
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="alias"
-                      name="alias"
-                      type="text"
-                      value={formData.alias}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Masukkan alias almarhum/almarhumah jika ada"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
@@ -477,7 +498,7 @@ const SuratKematian = () => {
                 <div className="col-span-1">
                   <label
                     htmlFor="sebabAkibatKematian"
-                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
+                    className="block text-sm/6 font-medium text-gray-900"
                   >
                     Sebab / Akibat Kematian
                   </label>
@@ -488,8 +509,7 @@ const SuratKematian = () => {
                       type="text"
                       value={formData.sebabAkibatKematian}
                       onChange={handleInputChange}
-                      required
-                      placeholder="Masukkan sebab / akibat kematian almarhum/almarhumah"
+                      placeholder="Optional"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
@@ -520,6 +540,7 @@ const SuratKematian = () => {
                     <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-black" />
                   </div>
                 </div>
+
                 <div className="col-span-1 md:col-span-2">
                   <label
                     htmlFor="alamat"
@@ -543,18 +564,18 @@ const SuratKematian = () => {
               </div>
             </section>
           </div>
-          <div className="mt-6 flex items-center justify-end gap-x-6">
+          <div className="mt-6 flex items-center justify-start  gap-x-6">
+            <button
+              type="submit"
+              className="rounded-md cursor-pointer bg-dashboard-button-primary px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-dashboard-button-hover transition-all duration-300 ease-in-out"
+            >
+              Ajukan SKK
+            </button>
             <button
               type="button"
               className="text-sm/6 font-semibold text-gray-900 cursor-pointer"
             >
               Batal
-            </button>
-            <button
-              type="submit"
-              className="rounded-md cursor-pointer bg-dashboard-button-primary px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-dashboard-button-hover transition-all duration-300 ease-in-out"
-            >
-              Ajukan Surat
             </button>
           </div>
         </form>

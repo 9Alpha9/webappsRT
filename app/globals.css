@@ -94,3 +94,6 @@ body {
 .animate-fade-in-down {
   animation: fade-in-down 0.5s ease-in-out;
 }
+.chat-typing .chat-typing__inner {
+  display: none !important;
+}

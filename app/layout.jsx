@@ -39,6 +39,27 @@ export default function RootLayout({ children }) {
         {!isDashboard && !isLogin && !isRegister && !isNotFound && (
           <FooterComp />
         )}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                (function(d, w, c) {
+                    w.BrevoConversationsID = '680e508f8c0224271a04237a';
+                    w[c] = w[c] || function() {
+                        (w[c].q = w[c].q || []).push(arguments);
+                    };
+                    var s = d.createElement('script');
+                    s.async = true;
+                    s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+                    if (d.head) d.head.appendChild(s);
+                })(document, window, 'BrevoConversations');
+              `,
+          }}
+        ></script>
+        <style jsx global>{`
+          .chat-typing__inner {
+            display: none !important;
+          }
+        `}</style>
       </body>
     </html>
   );

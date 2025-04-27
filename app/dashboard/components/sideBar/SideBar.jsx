@@ -35,23 +35,23 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, setIsCollapsed }) => {
       hasDropdown: true,
       dropdownItems: [
         {
-          label: "Surat Keterangan Kematian",
+          label: "Pengajuan SKK",
           path: "/dashboard/requests/surat-kematian",
         },
         {
-          label: "Surat Keterangan Kurang Mampu",
+          label: "Pengajuan SKTM",
           path: "/dashboard/requests/surat-keterangan-kurang-mampu",
         },
         {
-          label: "Surat Keterangan Bidang Usaha",
+          label: "Pengajuan SKBU",
           path: "/dashboard/#",
         },
         {
-          label: "Surat Keterangan Belum Menikah",
+          label: "Pengajuan SKBM",
           path: "/dashboard/#",
         },
         {
-          label: "Surat Keterangan Pindah Kependudukan",
+          label: "Pengajuan SKPK",
           path: "/dashboard/#",
         },
       ],
