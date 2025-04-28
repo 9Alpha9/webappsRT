@@ -15,7 +15,13 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { AnimatePresence } from "framer-motion";
+import { umurList } from "./umurList";
+
 const SuratKematian = () => {
+  const [lastJob, setLastJob] = useState("");
+  const [otherLastJob, setOtherLastJob] = useState("");
+  const [isOtherLastJob, setIsOtherLastJob] = useState(false);
+
   const [showDialog, setShowDialog] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -27,7 +33,7 @@ const SuratKematian = () => {
     agama: "",
     jenisKelamin: "",
     hari: "",
-    jamKematian: "",
+    waktuKematian: "",
     tanggalKematian: "",
     sebabAkibatKematian: "",
     pekerjaanTerakhir: "",
@@ -35,13 +41,62 @@ const SuratKematian = () => {
     alamat: "",
   });
 
+  // const [umur, setUmur] = useState("");
+
+  const [waktuKematian, setWaktuKematian] = useState("");
+
+  const waktuOptions = [
+    { value: "subuh", label: "Subuh (03:00 - 05:00)" },
+    { value: "pagi", label: "Pagi (05:00 - 11:00)" },
+    { value: "siang", label: "Siang (11:00 - 15:00)" },
+    { value: "sore", label: "Sore (15:00 - 18:00)" },
+    { value: "malam", label: "Malam (18:00 - 03:00)" },
+  ];
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    if (isOtherLastJob) {
+      setLastJob(e.target.value);
+    }
   };
+
+  const handleOtherLastJobChange = (e) => {
+    setOtherLastJob(e.target.value);
+    setFormData((prev) => ({
+      ...prev,
+      pekerjaanTerakhir: e.target.value,
+    }));
+  };
+
+  const handleLastJobChange = (e) => {
+    const selected = e.target.value;
+    if (selected === "Lainnya") {
+      setIsOtherLastJob(true);
+      setLastJob("");
+    } else {
+      setIsOtherLastJob(false);
+      setLastJob(selected);
+      setOtherLastJob("");
+    }
+  };
+
+  const lastJobOptions = [
+    "Karyawan",
+    "Wiraswasta",
+    "Pengacara",
+    "Dokter",
+    "Pengusaha",
+    "Pengajar",
+    "TNI",
+    "Polisi",
+    "Pensiunan",
+    "Lainnya",
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -175,14 +230,6 @@ const SuratKematian = () => {
           </div>
         </div>
         <form onSubmit={handleSubmit}>
-          {/* <div className="mt-6 flex items-center gap-x-6">
-            <button
-              type="submit"
-              className="rounded-md cursor-pointer bg-dashboard-button-primary px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-dashboard-button-hover transition-all duration-300 ease-in-out"
-            >
-              Ajukan Surat Pengajuan Kematian
-            </button>
-          </div> */}
           <div className="border-b border-gray-900/10 pb-12 mt-18">
             <section className="my-6 sectionDateKematian border-b border-gray-900/10 pb-16">
               <span className="block font-bold text-gray-900 py-4 border-b border-gray-900/10">
@@ -207,29 +254,35 @@ const SuratKematian = () => {
                       value={formData.hari}
                       onChange={handleInputChange}
                       required
-                      placeholder="Masukkan hari kematian almarhum/almarhumah"
+                      placeholder="Senin / Soma"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
                 </div>
                 <div className="col-span-1">
                   <label
-                    htmlFor="jamKematian"
+                    htmlFor="waktuKematian"
                     className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
-                    Jam Kematian Almarhum/Almarhumah
+                    Waktu Kematian Almarhum/Almarhumah
                   </label>
-                  <div className="mt-2">
-                    <input
-                      id="jamKematian"
-                      name="jamKematian"
-                      type="text"
-                      value={formData.jamKematian}
-                      onChange={handleInputChange}
+                  <div className="mt-2 relative">
+                    <select
+                      id="waktuKematian"
+                      name="waktuKematian"
+                      value={waktuKematian}
+                      onChange={(e) => setWaktuKematian(e.target.value)}
                       required
-                      placeholder="Masukkan jam kematian almarhum/almarhumah"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
+                      className="w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
+                    >
+                      <option value="">Pilih Waktu Kematian</option>
+                      {waktuOptions.map((option, index) => (
+                        <option key={index} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-black" />
                   </div>
                 </div>
                 <div className="col-span-1">
@@ -267,7 +320,7 @@ const SuratKematian = () => {
                       value={formData.lokasiKematian}
                       onChange={handleInputChange}
                       required
-                      placeholder="Masukkan lokasi kematian almarhum/almarhumah"
+                      placeholder="Rumah Sakit, Puskesmas, atau tempat lainnya"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
@@ -285,7 +338,7 @@ const SuratKematian = () => {
                       htmlFor="nomorTelp"
                       className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                     >
-                      Nomor Telepon
+                      Nomor Telepon / WhatsApp
                     </label>
                     <div className="mt-2">
                       <input
@@ -296,7 +349,7 @@ const SuratKematian = () => {
                         inputMode="numeric"
                         required
                         aria-required="true"
-                        placeholder="Masukkan Nomor Telepon"
+                        placeholder="Nomor kerabat terdekat"
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         value={formData.nomorTelp}
                         onChange={(e) => {
@@ -447,7 +500,7 @@ const SuratKematian = () => {
                       value={formData.tempatLahir}
                       onChange={handleInputChange}
                       required
-                      placeholder="Masukkan tempat lahir almarhum/almarhumah"
+                      placeholder="Sidoarjo, Jawa Timur, Indonesia"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
@@ -467,7 +520,7 @@ const SuratKematian = () => {
                       value={formData.usia}
                       onChange={handleInputChange}
                       required
-                      placeholder="Masukkan usia almarhum/almarhumah"
+                      placeholder="70 Tahun"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
@@ -525,20 +578,32 @@ const SuratKematian = () => {
                     <select
                       id="pekerjaanTerakhir"
                       name="pekerjaanTerakhir"
-                      value={formData.pekerjaanTerakhir}
-                      onChange={handleInputChange}
+                      value={isOtherLastJob ? "Lainnya" : lastJob}
+                      onChange={handleLastJobChange}
                       required
-                      className="w-full font-medium rounded-md bg-white px-3 py-[8.8px] text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
+                      className="w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
                     >
-                      <option value="">Pilih Pekerjaan Terakhir</option>
-                      <option value="PNS">PNS</option>
-                      <option value="TNI">TNI</option>
-                      <option value="POLISI">POLISI</option>
-                      <option value="PENSIUNAN">PENSIUNAN</option>
-                      <option value="LAINNYA">LAINNYA</option>
+                      <option value="">Pilih Pekerjaan</option>
+                      {lastJobOptions.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
                     </select>
-                    <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-black" />
+                    <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-black" />
                   </div>
+
+                  {isOtherLastJob && (
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        value={otherLastJob}
+                        onChange={handleOtherLastJobChange}
+                        placeholder="Masukkan pekerjaan lainnya"
+                        className="w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div className="col-span-1 md:col-span-2">

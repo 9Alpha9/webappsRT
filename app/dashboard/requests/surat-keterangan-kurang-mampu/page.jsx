@@ -18,23 +18,85 @@ import {
 } from "@heroicons/react/24/solid";
 
 const SuratKeteranganKurangMampu = () => {
+  const [job, setJob] = useState("");
+  const [otherJob, setOtherJob] = useState("");
+  const [isOther, setIsOther] = useState(false);
+
+  const [rupiah, setRupiah] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [formData, setFormData] = useState({
     nama: "",
-    nomorNIP: "",
+    nomorNIK: "",
     tanggalLahir: "",
     tempatLahir: "",
     agama: "",
     pekerjaan: "",
     alamat: "",
+    totalPenghasilan: "",
+    status: "",
+    fotoRumah: "",
+    alasanPengajuanSKTM: "",
   });
+
+  const formatRupiah = (angka) => {
+    const numberString = angka.replace(/[^,\d]/g, "").toString();
+    const split = numberString.split(",");
+    let sisa = split[0].length % 3;
+    let rupiah = split[0].substr(0, sisa);
+    const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+      const separator = sisa ? "." : "";
+      rupiah += separator + ribuan.join(".");
+    }
+
+    rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
+    return rupiah;
+  };
+
+  const handleChange = (e) => {
+    setRupiah(formatRupiah(e.target.value));
+  };
+
+  const handleOtherJobChange = (e) => {
+    setOtherJob(e.target.value);
+    setFormData((prev) => ({
+      ...prev,
+      pekerjaan: e.target.value,
+    }));
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    if (isOther) {
+      setJob(e.target.value);
+    }
   };
+
+  const jobOptions = [
+    "Pelajar",
+    "Mahasiswa",
+    "Karyawan",
+    "Wirausaha",
+    "Lainnya",
+  ];
+
+  const handleJobChange = (e) => {
+    const selected = e.target.value;
+    if (selected === "Lainnya") {
+      setIsOther(true);
+      setJob("");
+    } else {
+      setIsOther(false);
+      setJob(selected);
+      setOtherJob("");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
@@ -191,24 +253,24 @@ const SuratKeteranganKurangMampu = () => {
                 </div>
                 <div className="col-span-1">
                   <label
-                    htmlFor="nomorNIP"
+                    htmlFor="nomorNIK"
                     className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
                   >
                     NIK
                   </label>
                   <div className="mt-2">
                     <input
-                      id="nomorNIP"
-                      name="nomorNIP"
+                      id="nomorNIK"
+                      name="nomorNIK"
                       type="number"
                       pattern="[0-9]*"
                       // maxLength={16}
                       inputMode="numeric"
                       required
                       aria-required="true"
-                      placeholder="Masukkan KK/KTP"
+                      placeholder="Nomor NIK"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                      value={formData.nomorNIP}
+                      value={formData.nomorNIK}
                       onChange={(e) => {
                         if (e.target.value.length <= 16) {
                           handleInputChange(e);
@@ -258,7 +320,7 @@ const SuratKeteranganKurangMampu = () => {
                       onChange={handleInputChange}
                       required
                       placeholder="Masukkan Tempat Lahir"
-                      className=" w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      className="w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                     />
                   </div>
                 </div>
@@ -287,6 +349,7 @@ const SuratKeteranganKurangMampu = () => {
                     <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-black" />
                   </div>
                 </div>
+
                 <div className="col-span-1">
                   <label
                     htmlFor="pekerjaan"
@@ -298,23 +361,105 @@ const SuratKeteranganKurangMampu = () => {
                     <select
                       id="pekerjaan"
                       name="pekerjaan"
-                      value={formData.pekerjaan}
+                      value={isOther ? "Lainnya" : job}
+                      onChange={handleJobChange}
+                      required
+                      className="w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
+                    >
+                      <option value="">Pilih Pekerjaan</option>
+                      {jobOptions.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-black" />
+                  </div>
+
+                  {isOther && (
+                    <div className="mt-2">
+                      <input
+                        type="text"
+                        value={otherJob}
+                        onChange={handleOtherJobChange}
+                        placeholder="Masukkan pekerjaan lainnya"
+                        className="w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      />
+                    </div>
+                  )}
+                </div>
+                <div className="col-span-1">
+                  <label
+                    htmlFor="status"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
+                  >
+                    Status
+                  </label>
+                  <div className="mt-2 relative">
+                    <select
+                      id="status"
+                      name="status"
+                      value={formData.status}
                       onChange={handleInputChange}
                       required
                       aria-required="true"
-                      placeholder="Masukkan Pekerjaan"
+                      placeholder="Masukkan Status"
                       className=" w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
                     >
-                      <option value="SelectPekerjaan">Pilih Pekerjaan</option>
-                      <option value="PNS">PNS</option>
-                      <option value="TNI">TNI</option>
-                      <option value="POLISI">POLISI</option>
-                      <option value="Karyawan Swasta">Karyawan Swasta</option>
-                      <option value="Pedagang">Pedagang</option>
-                      <option value="Petani">Petani</option>
-                      <option value="Lainnya">Lainnya</option>
+                      <option value="SelectStatus">Pilih Status</option>
+                      <option value="Menikah">Menikah</option>
+                      <option value="Belum Menikah">Belum Menikah</option>
+                      <option value="Cerai Mati">Cerai Mati</option>
+                      <option value="Cerai Hidup">Cerai Hidup</option>
                     </select>
                     <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-3 w-3 text-black" />
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <label
+                    htmlFor="totalPenghasilan"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
+                  >
+                    Rata-rata Total Penghasilan
+                  </label>
+                  <div className="mt-2 relative overflow-hidden rounded-md">
+                    <input
+                      id="totalPenghasilan"
+                      name="totalPenghasilan"
+                      type="text"
+                      value={rupiah}
+                      onChange={handleChange}
+                      required
+                      placeholder="Penghasilan perbulan"
+                      className=" w-full rounded-md bg-white px-12 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                    />
+                    <div className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white bg-dashboard-button-primary px-2 py-2 items-center justify-center flex">
+                      Rp
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <label
+                    htmlFor="fotoRumah"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
+                  >
+                    Upload Foto Rumah
+                  </label>
+                  <div className="mt-2 relative">
+                    <input
+                      id="fotoRumah"
+                      name="fotoRumah"
+                      value={formData.fotoRumah}
+                      onChange={handleInputChange}
+                      required
+                      type="file"
+                      accept="image/*"
+                      placeholder="Masukkan Foto Rumah"
+                      className=" w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 appearance-none pr-10"
+                    />
+                    <p className="text-xs text-gray-500 mt-2">
+                      Ukuran file maksimal 10MB dan format file jpg, jpeg, png!
+                    </p>
                   </div>
                 </div>
                 <div className="col-span-1 md:col-span-2">
@@ -337,10 +482,29 @@ const SuratKeteranganKurangMampu = () => {
                     />
                   </div>
                 </div>
+                <div className="col-span-1 md:col-span-2">
+                  <label
+                    htmlFor="alasanPengajuanSKTM"
+                    className="block text-sm/6 font-medium text-gray-900 after:text-red-500 after:content-['*'] after:ml-0.5"
+                  >
+                    Alasan Pengajuan SKTM
+                  </label>
+                  <div className="mt-2">
+                    <textarea
+                      id="alasanPengajuanSKTM"
+                      name="alasanPengajuanSKTM"
+                      type="text"
+                      value={formData.alasanPengajuanSKTM}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Masukkan Alasan Pengajuan SKTM"
+                      className=" w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 resize-none h-32 md:h-24 overflow-y-auto"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-3 mt-6"></div>
             </section>
-            <div className="mt-6 flex items-center justify-start  gap-x-6">
+            <div className="mt-6 flex items-center justify-start gap-x-6">
               <button
                 type="submit"
                 className="rounded-md cursor-pointer bg-dashboard-button-primary px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-dashboard-button-hover transition-all duration-300 ease-in-out"
