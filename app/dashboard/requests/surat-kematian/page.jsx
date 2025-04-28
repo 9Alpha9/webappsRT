@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import React from "react";
 import {
   UsersIcon,
@@ -15,12 +15,19 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { AnimatePresence } from "framer-motion";
-import { umurList } from "./umurList";
+// import { umurList } from "./umurList";
 
 const SuratKematian = () => {
   const [lastJob, setLastJob] = useState("");
   const [otherLastJob, setOtherLastJob] = useState("");
   const [isOtherLastJob, setIsOtherLastJob] = useState(false);
+  const dateInputRef = useRef(null);
+
+  useEffect(() => {
+    if (dateInputRef.current) {
+      dateInputRef.current.focus();
+    }
+  }, []);
 
   const [showDialog, setShowDialog] = useState(false);
 
@@ -299,6 +306,7 @@ const SuratKematian = () => {
                       type="date"
                       value={formData.tanggalKematian}
                       onChange={handleInputChange}
+                      ref={dateInputRef}
                       required
                       placeholder="Masukkan tanggal kematian almarhum/almarhumah"
                       className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-slate-800 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
