@@ -11,11 +11,28 @@ export async function POST(request) {
       );
     }
 
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_LARAVEL_API_URL}/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nik,
+          password,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
     // Simulasi proses login berhasil
     return NextResponse.json({
       message: "Login berhasil",
       user: {
         nik,
+        password,
         name: "Contoh Pengguna",
       },
     });
