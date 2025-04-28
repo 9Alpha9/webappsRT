@@ -6,7 +6,6 @@ const LARAVEL_API_URL =
 
 export async function GET(request) {
   try {
-    // Mendapatkan query parameters jika ada
     const { searchParams } = new URL(request.url);
     const queryString = searchParams.toString();
     const url = queryString

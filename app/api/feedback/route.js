@@ -18,9 +18,9 @@ export async function POST(request) {
       }),
     });
 
-    // if (!response.ok) {
-    //   throw new Error("Failed to submit form");
-    // }
+    if (!response.ok) {
+      throw new Error("Failed to submit form");
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
