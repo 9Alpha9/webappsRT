@@ -8,6 +8,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import "./loginForm.scss";
 import ReCAPTCHA from "react-google-recaptcha";
+import { setCookie } from "../../globalFunction";
 
 export default function LoginForm() {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
@@ -43,9 +44,12 @@ export default function LoginForm() {
     }
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/login", formData);
-      loca
-      console.log("Login berhasil:", response.data);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/login",
+        formData
+      );
+      setCookie("token", response.data.token, 1);
+      window.location.replace('/dashboard');
     } catch (err) {
       console.log(err);
       setError(
