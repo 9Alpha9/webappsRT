@@ -43,9 +43,11 @@ export default function LoginForm() {
     }
 
     try {
-      const response = await axios.post("/api/auth/login", formData);
+      const response = await axios.post("http://127.0.0.1:8000/login", formData);
+      loca
       console.log("Login berhasil:", response.data);
     } catch (err) {
+      console.log(err);
       setError(
         err.response?.data?.message || "Terjadi kesalahan. Silakan coba lagi."
       );
