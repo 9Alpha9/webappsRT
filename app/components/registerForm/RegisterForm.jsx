@@ -15,8 +15,7 @@ export default function RegisterForm() {
   const recaptchaRef = useRef();
   const [image] = useState(imagePix);
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
+    full_name: "",
     nik: "",
     address: "",
     handphone: "",
@@ -194,42 +193,22 @@ export default function RegisterForm() {
                 <div className="sectionName">
                   <span className="sectionInputItems">
                     <label
-                      htmlFor="first_name"
+                      htmlFor="full_name"
                       className="after:ml-0.5 after:text-red-500 after:content-['*'] block text-sm font-medium text-stone-200"
                     >
-                      Nama Depan
+                      Nama Lengkap
                     </label>
                     <input
-                      id="first_name"
-                      name="first_name"
+                      id="full_name"
+                      name="full_name"
                       type="text"
                       required
-                      value={formData.first_name}
+                      value={formData.full_name}
                       onChange={handleInputChange}
                       className="mt-2.5 rounded-md text-slate-300 block w-full px-3 py-2 border border-slate-600 bg-slate-800  shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400"
                     />
                   </span>
                 </div>
-                <div className="sectionName">
-                  <span className="sectionInputItems">
-                    <label
-                      htmlFor="last_name"
-                      className="after:ml-0.5 after:text-red-500 after:content-['*'] block text-sm font-medium text-stone-200"
-                    >
-                      Nama Belakang
-                    </label>
-                    <input
-                      id="last_name"
-                      name="last_name"
-                      type="text"
-                      required
-                      value={formData.last_name}
-                      onChange={handleInputChange}
-                      className="mt-2.5 rounded-md text-slate-300 block w-full px-3 py-2 border border-slate-600 bg-slate-800  shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400"
-                    />
-                  </span>
-                </div>
-
                 <div className="sectionNik">
                   <span className="sectionInputItems">
                     <label
