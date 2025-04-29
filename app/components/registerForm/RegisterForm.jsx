@@ -8,6 +8,7 @@ import "./registerForm.scss";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
+import { setCookie } from "../../globalFunction";
 
 export default function RegisterForm() {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
@@ -15,10 +16,10 @@ export default function RegisterForm() {
   const recaptchaRef = useRef();
   const [image] = useState(imagePix);
   const [formData, setFormData] = useState({
-    name: "",
+    full_name: "",
     nik: "",
-    alamat: "",
-    phone: "",
+    address: "",
+    handphone: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
@@ -47,9 +48,13 @@ export default function RegisterForm() {
     }
 
     try {
-      const response = await axios.post("/api/auth/register", formData);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/register",
+        formData
+      );
+      setCookie("token", response.data.token, 1);
       console.log("Registrasi berhasil:", response.data);
-      // Di sini Anda bisa menambahkan logika redirect setelah registrasi berhasil
+      window.location.replace("/dashboard");
     } catch (err) {
       setError(
         err.response?.data?.message || "Terjadi kesalahan. Silakan coba lagi."
@@ -188,17 +193,17 @@ export default function RegisterForm() {
                 <div className="sectionName">
                   <span className="sectionInputItems">
                     <label
-                      htmlFor="name"
+                      htmlFor="full_name"
                       className="after:ml-0.5 after:text-red-500 after:content-['*'] block text-sm font-medium text-stone-200"
                     >
                       Nama Lengkap
                     </label>
                     <input
-                      id="name"
-                      name="name"
+                      id="full_name"
+                      name="full_name"
                       type="text"
                       required
-                      value={formData.name}
+                      value={formData.full_name}
                       onChange={handleInputChange}
                       className="mt-2.5 rounded-md text-slate-300 block w-full px-3 py-2 border border-slate-600 bg-slate-800  shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400"
                     />
@@ -240,21 +245,21 @@ export default function RegisterForm() {
                 <div className="sectionPhone">
                   <span className="sectionInputItems">
                     <label
-                      htmlFor="phone"
+                      htmlFor="handphone"
                       className="after:ml-0.5 after:text-red-500 after:content-['*'] block text-sm font-medium text-stone-200"
                     >
                       No. Telephone
                     </label>
                     <input
-                      id="phone"
-                      name="phone"
+                      id="handphone"
+                      name="handphone"
                       type="number"
                       pattern="[0-9]*"
                       inputMode="numeric"
                       maxLength={16}
                       required
                       className="bg-slate-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none mt-2.5 block w-full px-3 py-2 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400 text-slate-300"
-                      value={formData.phone}
+                      value={formData.handphone}
                       onChange={(e) => {
                         if (e.target.value.length <= 12) {
                           handleInputChange(e);
@@ -272,17 +277,17 @@ export default function RegisterForm() {
                 <div className="sectionAddress">
                   <span className="sectionInputItems">
                     <label
-                      htmlFor="alamat"
+                      htmlFor="address"
                       className="after:ml-0.5 after:text-red-500 after:content-['*'] block text-sm font-medium text-stone-200"
                     >
                       Alamat
                     </label>
                     <input
-                      id="alamat"
-                      name="alamat"
+                      id="address"
+                      name="address"
                       type="text"
                       required
-                      value={formData.alamat}
+                      value={formData.address}
                       onChange={handleInputChange}
                       className="mt-2.5 rounded-md text-slate-300 block w-full px-3 py-2 border border-slate-600 bg-slate-800  shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400"
                     />
