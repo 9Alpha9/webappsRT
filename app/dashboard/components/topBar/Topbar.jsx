@@ -62,7 +62,7 @@ const Topbar = ({ toggleSidebar }) => {
                     Settings
                   </a>
                   <a
-                    href="#"
+                    href="#" onClick={setCookie('token', '', 0), window.location.replace('/')}
                     className="block px-4 py-2 text-sm text-white hover:bg-dashboard-topbar-profile-hover"
                   >
                     Logout

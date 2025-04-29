@@ -49,7 +49,7 @@ export default function LoginForm() {
         formData
       );
       setCookie("token", response.data.token, 1);
-      console.log("Login berhasil:", response.data);
+      window.location.replace('/dashboard');
     } catch (err) {
       console.log(err);
       setError(
