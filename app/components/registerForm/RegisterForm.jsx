@@ -39,7 +39,6 @@ export default function RegisterForm() {
 
     if (!recaptchaValue) {
       setShowAlert(true);
-      // Sembunyikan alert setelah 8 detik
       setTimeout(() => {
         setShowAlert(false);
       }, 8000);
@@ -53,7 +52,7 @@ export default function RegisterForm() {
       );
       setCookie("token", response.data.token, 1);
       console.log("Registrasi berhasil:", response.data);
-      // window.location.replace("/dashboard");
+      window.location.replace("/login");
     } catch (err) {
       console.log(err);
       setError(
@@ -220,7 +219,7 @@ export default function RegisterForm() {
                     <input
                       id="nik"
                       name="nik"
-                      type="number"
+                      type="text"
                       pattern="[0-9]*"
                       inputMode="numeric"
                       maxLength={16}
@@ -256,9 +255,10 @@ export default function RegisterForm() {
                     <input
                       id="handphone"
                       name="handphone"
-                      type="number"
+                      type="text"
                       pattern="[0-9]*"
                       inputMode="numeric"
+                      maxLength={14}
                       required
                       className="bg-slate-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none mt-2.5 block w-full px-3 py-2 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400 text-slate-300"
                       value={formData.handphone}
@@ -267,7 +267,7 @@ export default function RegisterForm() {
                           ...prev,
                           handphone: e.target.value,
                         }));
-                        if (e.target.value.length <= 12) {
+                        if (e.target.value.length <= 14) {
                           handleInputChange(e);
                         }
                       }}
