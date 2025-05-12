@@ -4,94 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faPhone,
-  faUser,
-  faSignOutAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { getCookie } from "../../globalFunction";
-import axios from "axios";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const pathname = usePathname();
-  const isLoggedIn = !!userProfile;
 
-  const [nik, setNik] = useState("");
-  const [password, setPassword] = useState("");
-  const [userProfile, setUserProfile] = useState(null);
-  const [error, setError] = useState("");
   const router = useRouter();
-
-  useEffect(() => {
-    const profile = getCookie("userProfile");
-    if (profile) {
-      try {
-        const parsedProfile = JSON.parse(profile);
-        console.log("Parsed profile:", parsedProfile);
-        setUserProfile(parsedProfile);
-      } catch (error) {
-        console.error("Error parsing user profile:", error);
-        setUserProfile(null); // reset jika error
-      }
-    }
-  }, []);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
-
-    if (!nik || !password) {
-      setError("NIK dan password harus diisi");
-      return;
-    }
-
-    try {
-      const loginData = {
-        nik: nik,
-        password: password,
-      };
-
-      const response = await axios.post(
-        "http://127.0.0.1:8000/login",
-        loginData,
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (response.data) {
-        const userData = {
-          nik: response.data.nik,
-          name: response.data.full_name || "", // tambahkan jika ada nama
-          // avatar: response.data.avatar || "", // tambahkan jika ada avatar
-        };
-
-        // Simpan ke cookie
-        setCookie("userProfile", JSON.stringify(userData), { path: "/" });
-
-        setUserProfile(userData); // update state
-        router.push("/"); // redirect ke halaman utama
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      if (error.response) {
-        console.log("Error data:", error.response.data);
-        setError(
-          error.response.data.message ||
-            JSON.stringify(error.response.data.errors) ||
-            "Terjadi kesalahan saat login"
-        );
-      } else if (error.request) {
-        setError("Tidak dapat terhubung ke server");
-      } else {
-        setError("Terjadi kesalahan");
-      }
-    }
+  const handleLogin = () => {
+    router.push("/login");
   };
 
   // Menutup menu saat pathname berubah
@@ -109,14 +32,6 @@ export default function Navbar() {
     } else {
       setIsMenuOpen(true);
     }
-  };
-
-  const handleLogout = () => {
-    // Hapus cookie userProfile
-    document.cookie =
-      "userProfile=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    setUserProfile(null);
-    router.push("/");
   };
 
   return (
@@ -198,32 +113,14 @@ export default function Navbar() {
               >
                 Tentang RT 50
               </Link>
-              <div className={styles.loginButtonContainer}>
-                {!isLoggedIn ? (
-                  <button className={styles.loginButton} onClick={handleLogin}>
-                    Login
-                  </button>
-                ) : (
-                  <div className={styles.userProfile}>
-                    <div className={styles.avatarContainer}>
-                      <FontAwesomeIcon
-                        icon={faUser}
-                        className={styles.avatar}
-                      />
-                    </div>
-                    <div className={styles.userDropdown}>
-                      <span>Welcome, {userProfile?.name}</span>
-                      <button
-                        onClick={handleLogout}
-                        className={styles.logoutButton}
-                      >
-                        <FontAwesomeIcon icon={faSignOutAlt} />
-                        Logout
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <button className={styles.loginButton} onClick={handleLogin}>
+                <Link
+                  href="/login"
+                  // onClick={() => console.log("Login clicked")}
+                >
+                  Login
+                </Link>
+              </button>
               <div className={styles.navOverlay}>
                 <span>
                   <FontAwesomeIcon icon={faEnvelope} />

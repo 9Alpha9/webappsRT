@@ -1,27 +1,46 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import styles from "./styles.module.scss";
+import { usePathname, useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
+import {
+  faEnvelope,
+  faPhone,
+  faUser,
+  faSortAlphaDesc,
+  faSortDesc,
+} from "@fortawesome/free-solid-svg-icons";
+import styles from "./styles.module.scss";
+import { getCookie } from "../../globalFunction";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [fullName, setFullName] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const pathname = usePathname();
-
   const router = useRouter();
-  const handleLogin = () => {
-    router.push("/login");
+
+  // Ambil cookie full_name saat pertama kali komponen dimuat
+  useEffect(() => {
+    const cookieName = getCookie("full_name");
+    if (cookieName) {
+      const shortName = cookieName.split(" ").slice(0, 2).join(" ");
+      setFullName(shortName);
+      // setFullName(cookieName);
+    }
+  }, []);
+
+  // Logout handler
+  const handleLogout = () => {
+    document.cookie =
+      "full_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setFullName("");
+    router.push("/");
   };
 
-  // Menutup menu saat pathname berubah
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [pathname]);
-
+  // Toggle menu responsive
   const toggleMenu = () => {
     if (isMenuOpen) {
       setIsClosing(true);
@@ -34,13 +53,18 @@ export default function Navbar() {
     }
   };
 
+  // Tutup menu saat ganti halaman
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
   return (
     <>
       <div className={styles.topNav}>
         <div className={styles.topNavItems}>
           <div className={styles.topNavLeft}>
             <div className={styles.emailInfo}>
-              <FontAwesomeIcon icon={faEnvelope} className="w-3  h-3" />
+              <FontAwesomeIcon icon={faEnvelope} className="w-3 h-3" />
               <span>info@kartart50.com</span>
             </div>
             <div className={styles.phoneInfo}>
@@ -51,6 +75,7 @@ export default function Navbar() {
           <div className={styles.topNavRight}>KARTAR RT50</div>
         </div>
       </div>
+
       <div className={styles.navContainer}>
         <div className={styles.navContent}>
           <nav className={styles.nav}>
@@ -89,22 +114,15 @@ export default function Navbar() {
               >
                 Beranda
               </Link>
-              <Link
-                href="/#"
-                className={`${styles.navLink} ${
-                  pathname === "/#" ? styles.active : ""
-                }`}
-              >
+              <Link href="/#" className={styles.navLink}>
                 Ajuan Formulir
               </Link>
-              <Link
-                href="/#"
-                className={`${styles.navLink} ${
-                  pathname === "/#" ? styles.active : ""
-                }`}
-              >
+              <Link href="/#" className={styles.navLink}>
                 Aduan Warga
               </Link>
+              {/* <Link href="/page/tentang-rt5" className={styles.navLink}>
+                Tentang RT 50
+              </Link> */}
               <Link
                 href="/page/tentang-rt50"
                 className={`${styles.navLink} ${
@@ -113,22 +131,69 @@ export default function Navbar() {
               >
                 Tentang RT 50
               </Link>
-              <button className={styles.loginButton} onClick={handleLogin}>
-                <Link
-                  href="/login"
-                  // onClick={() => console.log("Login clicked")}
-                >
-                  Login
-                </Link>
-              </button>
+
+              <div className={styles.loginButtonContainer}>
+                {!fullName ? (
+                  <button
+                    className={styles.loginButton}
+                    onClick={() => {
+                      window.location.replace("/login");
+                    }}
+                  >
+                    Login
+                  </button>
+                ) : (
+                  <div className={styles.userProfile}>
+                    <div
+                      className={styles.userWrapper}
+                      onMouseEnter={() => setIsDropdownOpen(true)}
+                      onMouseLeave={() => setIsDropdownOpen(false)}
+                    >
+                      <div className={styles.avatarContainer}>
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          className={styles.avatar}
+                        />
+                      </div>
+                      <span className={styles.userName}>
+                        Hi, {fullName}
+                        <FontAwesomeIcon
+                          icon={faSortDesc}
+                          className="relative -top-[.2rem] ml-2"
+                        />
+                      </span>
+
+                      <AnimatePresence>
+                        {isDropdownOpen && (
+                          <motion.div
+                            className={styles.userDropdown}
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <Link
+                              href="/dashboard"
+                              className={styles.dropdownLink}
+                            >
+                              <span className={styles.dropdownName}>
+                                Dashboard Saya
+                              </span>
+                            </Link>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <div className={styles.navOverlay}>
                 <span>
-                  <FontAwesomeIcon icon={faEnvelope} />
-                  info@kartart50.com
+                  <FontAwesomeIcon icon={faEnvelope} /> info@kartart50.com
                 </span>
                 <span>
-                  <FontAwesomeIcon icon={faPhone} />
-                  <span>(+62) 123-456-789</span>
+                  <FontAwesomeIcon icon={faPhone} /> (+62) 123-456-789
                 </span>
               </div>
             </div>

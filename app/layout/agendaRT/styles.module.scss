@@ -28,7 +28,6 @@ $padding-agd: 2.7rem;
 
   @media (min-width: 1024px) {
     margin-top: 8rem;
-    margin-bottom: 8rem;
   }
 
   .agendaHeader {
@@ -37,16 +36,20 @@ $padding-agd: 2.7rem;
     color: $header-color;
     font-weight: $header-weight;
 
-    @media (max-width: 992px) {
+    @media (max-width: 900px) {
       font-size: $header-title-md;
     }
 
-    @media (min-width: 1023px) {
-      font-size: $header-title-lg;
+    @media (min-width: 768px) {
+      font-size: $header-title-md;
     }
 
-    @media (min-width: 1024px) {
-      font-size: $header-title-2xl;
+    // @media (min-width: 1023px) {
+    //   font-size: $header-title-lg;
+    // }
+
+    @media (min-width: 1200px) {
+      font-size: 3rem;
     }
   }
 }

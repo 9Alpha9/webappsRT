@@ -5,7 +5,8 @@ import {
   BellIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
-import { setCookie } from "../../../globalFunction";
+// import { setCookie } from "../../../globalFunction";
+import { logout } from "../../../globalFunction";
 
 const Topbar = ({ toggleSidebar }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -63,12 +64,11 @@ const Topbar = ({ toggleSidebar }) => {
                     Settings
                   </a>
                   <a
-                    href="#"
-                    onClick={() => {
-                      setCookie("token", "", 0);
-                      window.location.replace("/");
+                    onClick={(e) => {
+                      e.preventDefault(); // cegah link reload
+                      logout(); // panggil fungsi logout
                     }}
-                    className="block px-4 py-2 text-sm text-white hover:bg-dashboard-topbar-profile-hover"
+                    className="block px-4 py-2 text-sm text-white hover:bg-dashboard-topbar-profile-hover cursor-pointer"
                   >
                     Logout
                   </a>

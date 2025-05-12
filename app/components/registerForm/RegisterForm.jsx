@@ -24,6 +24,11 @@ export default function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [showAlertSuccess, setshowAlertSuccess] = useState(false);
+  const [showAlertError, setshowAlertError] = useState({
+    show: false,
+    message: "",
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,14 +55,54 @@ export default function RegisterForm() {
         "http://127.0.0.1:8000/register",
         formData
       );
-      setCookie("token", response.data.token, 1);
       console.log("Registrasi berhasil:", response.data);
-      window.location.replace("/login");
+      setshowAlertSuccess(true);
+      setTimeout(() => {
+        setshowAlertSuccess(false);
+        window.location.replace("/login");
+      }, 3000);
     } catch (err) {
       console.log(err);
-      setError(
-        err.response?.data?.message || "Terjadi kesalahan. Silakan coba lagi."
-      );
+
+      const errorFieldsOrder = [
+        "full_name",
+        "nik",
+        "handphone",
+        "address",
+        "password",
+      ];
+      const errors = err.response?.data?.errors || {};
+      const mainMessage = err.response?.data?.message;
+
+      let firstErrorMessage = "";
+
+      for (let field of errorFieldsOrder) {
+        if (errors[field] && errors[field].length > 0) {
+          firstErrorMessage = errors[field][0];
+          break;
+        }
+      }
+
+      if (!firstErrorMessage && mainMessage) {
+        firstErrorMessage = mainMessage;
+      }
+
+      if (!firstErrorMessage) {
+        firstErrorMessage = "Terjadi kesalahan. Silakan coba lagi.";
+      }
+
+      setshowAlertError({ show: true, message: firstErrorMessage });
+      setTimeout(() => {
+        setshowAlertError({ show: false, message: "" });
+      }, 8000);
+      // console.log(err);
+      // setshowAlertError({
+      //   show: true,
+      //   message:
+      //     err.response?.data?.message ||
+      //     "Terjadi kesalahan. Silakan coba lagi.",
+      // });
+      // setTimeout(() => {}, 8000);
     } finally {
       setLoading(false);
     }
@@ -189,6 +234,91 @@ export default function RegisterForm() {
                     </div>
                   </div>
                 )}
+                {showAlertError.show && (
+                  <div className="mb-4 animate-fade-in-down">
+                    <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0">
+                          <svg
+                            className="h-5 w-5 text-red-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-sm font-medium" id="errorMessage">
+                            {showAlertError.message}
+                          </p>
+                        </div>
+                        <div className="ml-auto pl-3">
+                          <div className="-mx-1.5 -my-1.5">
+                            <button
+                              onClick={() => setshowAlertError(false)}
+                              className="inline-flex rounded-md p-1.5 text-red-500 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 cursor-pointer"
+                            >
+                              <span className="sr-only">Dismiss</span>
+                              <svg
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {showAlertSuccess && (
+                  <div className="mb-4 animate-fade-in-down">
+                    <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0"></div>
+                        <div className="flex flex-row gap-8 items-center">
+                          <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                          <span className="text-sm">
+                            Akun berhasil didaftarkan, Silakan tunggu beberapa
+                            saat.
+                          </span>
+                        </div>
+                        <div className="ml-auto pl-3">
+                          <div className="-mx-1.5 -my-1.5">
+                            {/* <button
+                              onClick={() => setShowAlert(false)}
+                              className="inline-flex rounded-md p-1.5 text-green-500 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 cursor-pointer"
+                            >
+                              <span className="sr-only">Dismiss</span>
+                              <svg
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </button> */}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="sectionName">
                   <span className="sectionInputItems">
                     <label
@@ -201,11 +331,14 @@ export default function RegisterForm() {
                       id="full_name"
                       name="full_name"
                       type="text"
-                      required
                       value={formData.full_name}
                       onChange={handleInputChange}
+                      placeholder="Nama Lengkap"
                       className="mt-2.5 rounded-md text-slate-300 block w-full px-3 py-2 border border-slate-600 bg-slate-800  shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400"
                     />
+                    <p className="text-sm text-red-600  invisible peer-invalid:visible">
+                      {error}
+                    </p>
                   </span>
                 </div>
                 <div className="sectionNik">
@@ -223,7 +356,6 @@ export default function RegisterForm() {
                       pattern="[0-9]*"
                       inputMode="numeric"
                       maxLength={16}
-                      required
                       className="bg-slate-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none mt-2.5 block w-full px-3 py-2 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400 text-slate-300"
                       value={formData.nik}
                       onChange={(e) => {
@@ -259,7 +391,6 @@ export default function RegisterForm() {
                       pattern="[0-9]*"
                       inputMode="numeric"
                       maxLength={14}
-                      required
                       className="bg-slate-800 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none mt-2.5 block w-full px-3 py-2 border border-slate-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400 text-slate-300"
                       value={formData.handphone}
                       onChange={(e) => {
@@ -292,7 +423,7 @@ export default function RegisterForm() {
                       id="address"
                       name="address"
                       type="text"
-                      required
+                      autoComplete="off"
                       value={formData.address}
                       onChange={handleInputChange}
                       className="mt-2.5 rounded-md text-slate-300 block w-full px-3 py-2 border border-slate-600 bg-slate-800  shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400"
@@ -312,17 +443,18 @@ export default function RegisterForm() {
                       id="password"
                       name="password"
                       type="password"
-                      required
+                      autoComplete="off"
                       value={formData.password}
                       onChange={handleInputChange}
                       className="mt-2.5 rounded-md text-slate-300 block w-full px-3 py-2 border border-slate-600 bg-slate-800  shadow-sm focus:outline-none focus:ring-indigo-400 focus:border-indigo-400"
                     />
                   </span>
                 </div>
-                <div className="flex justify-center mt-14">
+                <div className="flex justify-center mt-14 animate-fade-in-down duration-100">
                   <ReCAPTCHA
                     ref={recaptchaRef}
                     sitekey={siteKey}
+                    // sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
                     size="normal"
                   />
                 </div>
@@ -345,7 +477,7 @@ export default function RegisterForm() {
                     Sudah punya akun? Masuk di sini
                   </Link>
                 </div>
-                {error && <div className="text-sm text-red-600">{error}</div>}
+                {/* {error && <div className="text-sm text-red-600">{error}</div>} */}
               </div>
             </form>
           </div>

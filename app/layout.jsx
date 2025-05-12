@@ -2,7 +2,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import FooterComp from "./components/footer/footerComp";
-import NavbarComp from "./components/navbarComp/navbar";
+// import NavbarComp from "./components/navbarComp/navbar";
+import Navbar from "./components/navbarComp/navbar";
 import { usePathname } from "next/navigation";
 import { MetaData } from "./metada";
 const inter = Inter({ subsets: ["latin"] });
@@ -26,14 +27,8 @@ export default function RootLayout({ children }) {
       <meta name="keywords" content={MetaData.keywords.join(", ")} />
       <meta name="author" content={MetaData.authors[0].name} />
       <meta property="og:title" content={MetaData.openGraph.title} />
-      <meta
-        property="og:description"
-        content={MetaData.openGraph.description}
-      />
       <body className={inter.className}>
-        {!isDashboard && !isLogin && !isRegister && !isNotFound && (
-          <NavbarComp />
-        )}
+        {!isDashboard && !isLogin && !isRegister && !isNotFound && <Navbar />}
         <GoogleAnalytics />
         {children}
         {!isDashboard && !isLogin && !isRegister && !isNotFound && (

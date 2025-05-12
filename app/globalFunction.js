@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export function setCookie(cname, cvalue, exdays) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -19,4 +21,15 @@ export function getCookie(cname) {
     }
   }
   return "";
+}
+
+export async function logout() {
+  try {
+    const response = await axios.post("http://127.0.0.1:8000/logout");
+    setCookie("token", "", 0);
+    setCookie("full_name", "", 0);
+    window.location.replace("/login");
+  } catch (err) {
+    console.log(err);
+  }
 }

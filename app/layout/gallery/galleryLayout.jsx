@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import gsap from "gsap";
+import TitleGallery from "./titleGallery";
 
 function GalleryLayout() {
   const [isClient, setIsClient] = useState(false);
@@ -36,23 +37,35 @@ function GalleryLayout() {
   useEffect(() => {
     if (!isClient) return;
 
-    columnRefs.current = columnRefs.current.slice(0, 5);
+    const isMobile = window.innerWidth < 500;
+
+    // Buang kolom lainnya dari ref jika mobile
+    columnRefs.current = isMobile
+      ? columnRefs.current.slice(0, 1)
+      : columnRefs.current.slice(0, 5);
+
+    // Hapus elemen DOM secara langsung jika mobile
+    if (isMobile) {
+      columnRefs.current.forEach((column, index) => {
+        if (index > 0 && column && column.parentNode) {
+          column.parentNode.removeChild(column);
+        }
+      });
+    }
 
     columnRefs.current.forEach((column, index) => {
       const direction = index % 2 === 0 ? -1 : 1;
       const duration = 600;
 
-      // Set posisi awal
       gsap.set(column, {
         y: direction === 1 ? "-70%" : "0%",
       });
 
-      // Animasi scroll
       gsap.to(column, {
         y: direction === 1 ? "0%" : "-100%",
         duration: duration,
         ease: "none",
-        repeat: -1,
+        repeat: -2,
         repeatDelay: 0,
         modifiers: {
           y: gsap.utils.unitize((y) => parseFloat(y) % 100),
@@ -72,10 +85,10 @@ function GalleryLayout() {
   return (
     <div className={styles.galleryLayout}>
       <div className={styles.galleryLayoutTitle}>
-        <h2>Gallery</h2>
+        <TitleGallery />
       </div>
       <div className={styles.galleryLayoutContent}>
-        {[...Array(5)].map((_, columnIndex) => {
+        {[...Array(5)].map((_, i) => {
           const shuffledImages = shuffleArray([
             ...images,
             ...images,
@@ -86,8 +99,10 @@ function GalleryLayout() {
 
           return (
             <div
-              key={columnIndex}
-              ref={(el) => (columnRefs.current[columnIndex] = el)}
+              key={i}
+              ref={(el) => {
+                if (el) columnRefs.current[i] = el;
+              }}
               className={styles.galleryLayoutContentImage}
             >
               <div className={styles.galleryColumnTrack}>
@@ -97,7 +112,7 @@ function GalleryLayout() {
                       src={src}
                       alt={`gallery-${index}`}
                       width={480}
-                      height={650}
+                      height={480}
                       quality={100}
                       className={styles.galleryImage}
                     />
